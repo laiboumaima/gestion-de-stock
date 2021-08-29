@@ -1,0 +1,152 @@
+.btn:hover{
+    -fx-cursor: hand;
+    -fx-background-color:   #1D80AF;
+    -fx-text-fill: #ffffff;
+}
+.btn{
+    -fx-font-size: 20;
+    -fx-text-fill: #ffffff;
+    -fx-background-color: #1C61B1;
+}
+
+.table-view .column-header,
+.table-view .column-header .label,
+.table-view .column-header .filler,
+.table-view .column-header-background .filler  {
+    -fx-background-color:  #1D80AF;
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 20;
+
+    -fx-stroke:#1D80AF;
+    -fx-size:50;
+    -fx-alignment: CENTER ;
+    -fx-text-alignment: center;
+
+}
+.column-header{
+    -fx-border-color: #003d5a;
+    -fx-border-width: 0.5;
+}
+.table-row-cell:filled:hover {
+    -fx-border-width: 1;
+    -fx-border-color:  #1D80AF;
+    -fx-size:50;
+    -fx-alignment: CENTER;
+    -fx-text-alignment: center;
+
+
+}
+.table-view:row-selection {
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
+    -fx-fixed-cell-size: 50;
+    -fx-alignment: CENTER;
+    -fx-text-alignment: center;
+
+}
+
+.table-view .table-column{
+    -fx-text-alignment: center;
+    -fx-alignment: CENTER;
+
+}
+.search{
+
+    -fx-background-color: #1D80AF;
+    -fx-text-fill: #ffff;
+}
+.search:hover{
+    -fx-cursor: hand;
+    -fx-background-color: #377b9c;
+    -fx-text-fill: #ffff;
+}
+.pane{
+    -fx-background-color :#fff;
+}
+.lbl{
+    -fx-text-fill: #1EA9AC;
+    -fx-font-size: 20;
+
+}
+.textfield {
+    -fx-background-color: -fx-text-box-border, -fx-background ;
+    -fx-background-insets: 0, 0 0 1 0 ;
+    -fx-background-radius: 0 ;
+}
+.textfield:focused {
+    -fx-background-color: -fx-focus-color, -fx-background ;
+}
+.add{
+
+    -fx-background-color:  #1D80AF;
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 20;
+    -fx-border-radius: 20;
+}
+.edit{
+    -fx-background-color: #005000;
+    -fx-text-fill: #ffffff;
+
+    -fx-border-radius: 20;
+    -fx-start-margin: 10;
+
+}
+.edit:hover{
+    -fx-background-color: #b1ffb1;
+    -fx-text-fill: #006a00;
+    -fx-cursor: hand;
+    -fx-border-radius: 20;
+
+}
+.space{
+    -fx-alignment: center;
+    -fx-spacing: 5;
+}
+.delete{
+    -fx-background-color: #d51010;
+    -fx-text-fill: #ffffff;
+
+    -fx-border-radius: 20;
+
+
+}
+.sell{ -fx-background-color: #1D80AF;
+    -fx-text-fill: #ffffff;
+
+    -fx-border-radius: 20;
+
+}
+.sell:hover{ -fx-background-color: #003b55;
+    -fx-text-fill: #ffffff;
+
+    -fx-border-radius: 20;
+
+}
+.delete:hover{
+    -fx-cursor: hand;
+    -fx-background-color: #f14747;
+    -fx-text-fill: #ffffff;
+
+    -fx-border-radius: 20;
+
+}
+.add:hover{
+    -fx-cursor: hand;
+    -fx-background-color: #1a4174;
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 20;
+    -fx-border-radius: 20;
+}
+.cancel{
+    -fx-background-color: #787878;
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 20;
+    -fx-border-radius: 20;
+}
+.cancel:hover{
+    -fx-cursor: hand;
+    -fx-background-color: #343434;
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 20;
+    -fx-border-radius: 20;
+}
