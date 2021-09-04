@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="532.0" prefWidth="793.0" styleClass="image" stylesheets="@../style/login.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controllers.Controller">
+   <children>
+      <Label layoutX="516.0" layoutY="98.0" text="تسجيل الدخول" textFill="#0062ff">
+         <font>
+            <Font size="30.0" />
+         </font>
+      </Label>
+      <TextField fx:id="tfusername" alignment="CENTER" layoutX="484.0" layoutY="216.0" prefHeight="32.0" prefWidth="229.0" promptText="اسم المستخدم" styleClass="text-area" stylesheets="@../style/login.css" />
+      <PasswordField fx:id="tfpw" alignment="CENTER" layoutX="484.0" layoutY="261.0" prefHeight="32.0" prefWidth="221.0" promptText="كلمة السر" styleClass="text-area" stylesheets="@../style/login.css" />
+      <Button fx:id="btnlogin" layoutX="487.0" layoutY="365.0" mnemonicParsing="false" onMouseClicked="#login" prefHeight="32.0" prefWidth="221.0" styleClass="text-area" stylesheets="@../style/login.css" text="دخول" textFill="WHITE">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </Button>
+      <Label layoutX="45.0" layoutY="38.0" text="LB_TECH" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
+      <Label layoutX="140.0" layoutY="219.0" text="مرحبا بك" textFill="WHITE">
+         <font>
+            <Font name="System Bold Italic" size="39.0" />
+         </font>
+      </Label>
+      <Label fx:id="text" alignment="CENTER" layoutX="548.0" layoutY="418.0" prefHeight="17.0" prefWidth="110.0" textFill="#ff1a1a" />
+   </children>
+</Pane>

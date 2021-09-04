@@ -2,7 +2,11 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
@@ -12,6 +16,9 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.paint.RadialGradient?>
+<?import javafx.scene.paint.Stop?>
+<?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
 <BorderPane fx:id="pagehome" layoutX="1.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="742.0" prefWidth="1032.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controllers.Controller">
@@ -19,7 +26,7 @@
              <Pane fx:id="editpage" prefHeight="742.0" prefWidth="864.0" styleClass="pane" stylesheets="@../style/style.css">
                  <children>
                      <Label layoutX="282.0" layoutY="11.0" prefHeight="59.0" prefWidth="329.0" style="-fx-text-fill: #1D80AF; -fx-font-size: 30; -fx-alignment: center; -fx-font-weight: bold;" stylesheets="@../style/style.css" text=" تعديل منتج" />
-                     <Pane layoutX="72.0" layoutY="112.0" prefHeight="575.0" prefWidth="728.0">
+                     <Pane layoutX="72.0" layoutY="112.0" prefHeight="575.0" prefWidth="728.0" style="-fx-background-color: #000;" stylesheets="@../style/login.css">
                          <children>
                              <Label layoutX="559.0" layoutY="5.0" styleClass="lbl" stylesheets="@../style/style.css" text=":ID" textAlignment="CENTER" />
                              <Label fx:id="idproductedit" layoutX="500.0" layoutY="5.0" styleClass="lbl" stylesheets="@../style/style.css" text="" textAlignment="CENTER" />
@@ -57,7 +64,7 @@
                              <TextField id="quantity" fx:id="tfq" alignment="CENTER_RIGHT" layoutX="122.0" layoutY="229.0" prefHeight="38.0" prefWidth="394.0" promptText="الكمية" styleClass="textfield" stylesheets="@../style/style.css" />
                              <Label alignment="CENTER" contentDisplay="CENTER" layoutX="561.0" layoutY="312.0" prefHeight="24.0" prefWidth="104.0" styleClass="lbl" stylesheets="@../style/style.css" text="الفئة :" textAlignment="CENTER" />
                              <Button id="addbtn" fx:id="btnadd" layoutX="479.0" layoutY="453.0" mnemonicParsing="false" onMouseClicked="#insertproduct" prefHeight="45.0" prefWidth="187.0" styleClass="add" stylesheets="@../style/style.css" text="اضافة" />
-                             <TextField fx:id="tfcategory" alignment="CENTER_RIGHT" layoutX="125.0" layoutY="303.0" prefHeight="38.0" prefWidth="394.0" promptText="الكمية" styleClass="textfield" stylesheets="@../style/style.css" />
+                             <TextField fx:id="tfcategory" alignment="CENTER_RIGHT" layoutX="125.0" layoutY="303.0" prefHeight="38.0" prefWidth="394.0" promptText="النوع" styleClass="textfield" stylesheets="@../style/style.css" />
                              <Label fx:id="addsuce" alignment="TOP_CENTER" contentDisplay="CENTER" layoutX="218.0" layoutY="528.0" prefHeight="18.0" prefWidth="280.0" style="-fx-text-fill: #00ff00;" />
                              <Button contentDisplay="CENTER" layoutX="330.0" layoutY="453.0" mnemonicParsing="false" onMouseClicked="#cancel" prefHeight="45.0" prefWidth="126.0" styleClass="cancel" stylesheets="@../style/style.css" text="الغاء" />
 
@@ -66,63 +73,53 @@
                  </children>
              </Pane>
 
-             
-            <GridPane id="page1" fx:id="table" prefHeight="742.0" prefWidth="913.0" BorderPane.alignment="CENTER">
-              <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-              </columnConstraints>
-              <rowConstraints>
-                <RowConstraints maxHeight="560.0" minHeight="10.0" prefHeight="65.0" vgrow="SOMETIMES" />
-                <RowConstraints maxHeight="611.0" minHeight="10.0" prefHeight="533.0" vgrow="SOMETIMES" />
-              </rowConstraints>
-               <children>
-                  <TableView fx:id="tableview" editable="true" prefHeight="560.0" prefWidth="755.0" stylesheets="@../style/style.css" GridPane.rowIndex="1">
-                    <columns>
-                        <TableColumn fx:id="colaction" prefWidth="75.0" />
-
-                        <TableColumn fx:id="winner" prefWidth="75.0" text="الربح" />
-                        <TableColumn fx:id="totalpricec" prefWidth="75.0" text="سعر الكل" />
-                      <TableColumn fx:id="quantity" prefWidth="20.0" text="الكمية" />
-                      <TableColumn fx:id="price" minWidth="0.0" prefWidth="10.0" text="سعر  للبيع " />
-                        <TableColumn fx:id="firstprice" minWidth="0.0" prefWidth="0.0" text="سعر المنتتج" />
-                        <TableColumn fx:id="name" prefWidth="239.0" styleClass="column-header" text="اسم المنتج" />
-                        <TableColumn fx:id="ID" prefWidth="106.0" text=" ID" />
 
 
+             <!--->
+             <!-->
 
-                    </columns>
-                     <columnResizePolicy>
-                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-                     </columnResizePolicy>
-                  </TableView>
-                  <TextField fx:id="tfsearch" alignment="CENTER_RIGHT" onKeyPressed="#searchmethode" prefHeight="25.0" prefWidth="824.0" promptText="البحث">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                     <GridPane.margin>
-                        <Insets left="350.0" right="40.0" />
-                     </GridPane.margin>
-                  </TextField>
-                  <Button mnemonicParsing="false" onMouseClicked="#search" prefHeight="31.0" prefWidth="56.0" styleClass="search" stylesheets="@../style/style.css" text="بحث">
-                     <GridPane.margin>
-                        <Insets left="290.0" />
-                     </GridPane.margin>
-                     <font>
-                        <Font size="15.0" />
-                     </font>
-                  </Button>
-            <Label fx:id="labeldelete" alignment="CENTER" nodeOrientation="RIGHT_TO_LEFT" prefHeight="18.0" prefWidth="207.0" style="-fx-text-fill: #d51010;" />
-               </children>
-            </GridPane>
-     <!---->
-             <!---->
+
+             <Pane id="add-new" fx:id="sellproductpaneedit" prefHeight="742.0" prefWidth="864.0" styleClass="pane" stylesheets="@../style/style.css">
+                 <children>
+                     <Label layoutX="282.0" layoutY="11.0" prefHeight="59.0" prefWidth="329.0" style="-fx-text-fill: #1D80AF; -fx-font-size: 30; -fx-alignment: center; -fx-font-weight: bold;" stylesheets="@../style/style.css" text="تعديل سلعة" />
+                     <Pane layoutX="19.0" layoutY="93.0" prefHeight="575.0" prefWidth="728.0">
+                         <children>
+                             <Label layoutX="566.0" layoutY="119.0" styleClass="lbl" stylesheets="@../style/style.css" text="اسم المنتج :" textAlignment="CENTER" />
+
+                             <Label layoutX="564.0" layoutY="168.0" styleClass="lbl" stylesheets="@../style/style.css" text="سعر  للبيع :" textAlignment="CENTER" />
+                             <Label alignment="CENTER" contentDisplay="CENTER" layoutX="561.0" layoutY="280.0" prefHeight="24.0" prefWidth="104.0" styleClass="lbl" stylesheets="@../style/style.css" text="الكمية :" textAlignment="CENTER" />
+                             <TextField id="quantity" fx:id="tfqselledit" alignment="CENTER_RIGHT" layoutX="130.0" layoutY="268.0" prefHeight="38.0" prefWidth="394.0" promptText="الكمية" styleClass="textfield" stylesheets="@../style/style.css" />
+                             <Label alignment="CENTER" contentDisplay="CENTER" layoutX="561.0" layoutY="342.0" prefHeight="24.0" prefWidth="104.0" styleClass="lbl" stylesheets="@../style/style.css" text="الفئة :" textAlignment="CENTER" />
+                             <Button id="addbtn" fx:id="btnselledit" layoutX="479.0" layoutY="453.0" mnemonicParsing="false" onMouseClicked="#editproductsell" prefHeight="45.0" prefWidth="187.0" styleClass="add" stylesheets="@../style/style.css" text="تعديل" />
+                             <Label fx:id="sellsuceedit" alignment="TOP_CENTER" contentDisplay="CENTER" layoutX="218.0" layoutY="528.0" prefHeight="18.0" prefWidth="280.0" style="-fx-text-fill: #00ff00;" />
+                             <Button contentDisplay="CENTER" layoutX="330.0" layoutY="453.0" mnemonicParsing="false" onMouseClicked="#cancelsell" prefHeight="45.0" prefWidth="126.0" styleClass="cancel" stylesheets="@../style/style.css" text="الغاء" />
+                             <Label layoutX="545.0" layoutY="223.0" styleClass="lbl" stylesheets="@../style/style.css" text="سعر المباع به :" textAlignment="CENTER" />
+                             <TextField id="price" fx:id="tfpriceselledit" alignment="CENTER_RIGHT" layoutX="130.0" layoutY="211.0" prefHeight="38.0" prefWidth="394.0" promptText="سعر المباع به " styleClass="textfield" stylesheets="@../style/style.css" />
+                             <Label fx:id="categoryselledit" alignment="CENTER_RIGHT" layoutX="232.0" layoutY="336.0" prefHeight="34.0" prefWidth="290.0" style="-fx-font-size: 20;" text="Label" />
+
+                             <Label fx:id="nameselledit" alignment="CENTER_RIGHT" layoutX="6.0" layoutY="119.0" prefHeight="34.0" prefWidth="519.0" style="-fx-font-size: 20;" text="Label" />
+                             <Label fx:id="priceselledit" alignment="CENTER_RIGHT" layoutX="8.0" layoutY="162.0" prefHeight="34.0" prefWidth="520.0" style="-fx-font-size: 20;" text="Label" />
+                             <Label fx:id="quantityselllabeledit" layoutX="8.0" layoutY="6.0" text="Label" visible="false" />
+                             <Label fx:id="idselleditedit" layoutX="8.0" layoutY="6.0" text="Label" visible="false" />
+                             <Label fx:id="firstpriceselledit" alignment="CENTER_RIGHT" layoutX="40.0" layoutY="14.0" prefHeight="34.0" prefWidth="520.0" style="-fx-font-size: 20;" text="Label" />
+                             <Label fx:id="textsec" alignment="CENTER" layoutX="200.0" layoutY="510.0" prefHeight="33.0" prefWidth="165.0" text="Label" />
+
+                         </children>
+                     </Pane>
+                     <Label fx:id="idselledit" alignment="CENTER_RIGHT" layoutX="300.0" layoutY="24.0" prefHeight="34.0" prefWidth="69.0" style="-fx-font-size: 20;" text="Label" />
+                 </children>
+             </Pane>
+             <!--->
+          page sell
+          <!-->
+
              <Pane id="add-new" fx:id="sellproductpane" prefHeight="742.0" prefWidth="864.0" styleClass="pane" stylesheets="@../style/style.css">
                  <children>
                      <Label layoutX="282.0" layoutY="11.0" prefHeight="59.0" prefWidth="329.0" style="-fx-text-fill: #1D80AF; -fx-font-size: 30; -fx-alignment: center; -fx-font-weight: bold;" stylesheets="@../style/style.css" text="بيع سلعة" />
                      <Pane layoutX="19.0" layoutY="93.0" prefHeight="575.0" prefWidth="728.0">
                          <children>
-                             <Label layoutX="559.0" layoutY="54.0" styleClass="lbl" stylesheets="@../style/style.css" text="اسم المنتج :" textAlignment="CENTER" />
-                             <Label layoutX="560.0" layoutY="114.0" styleClass="lbl" stylesheets="@../style/style.css" text="السعر الخام :" textAlignment="CENTER" />
+                             <Label layoutX="566.0" layoutY="119.0" styleClass="lbl" stylesheets="@../style/style.css" text="اسم المنتج :" textAlignment="CENTER" />
+
                              <Label layoutX="564.0" layoutY="168.0" styleClass="lbl" stylesheets="@../style/style.css" text="سعر  للبيع :" textAlignment="CENTER" />
                              <Label alignment="CENTER" contentDisplay="CENTER" layoutX="561.0" layoutY="280.0" prefHeight="24.0" prefWidth="104.0" styleClass="lbl" stylesheets="@../style/style.css" text="الكمية :" textAlignment="CENTER" />
                              <TextField id="quantity" fx:id="tfqsell" alignment="CENTER_RIGHT" layoutX="130.0" layoutY="268.0" prefHeight="38.0" prefWidth="394.0" promptText="الكمية" styleClass="textfield" stylesheets="@../style/style.css" />
@@ -130,24 +127,319 @@
                              <Button id="addbtn" fx:id="btnsell" layoutX="479.0" layoutY="453.0" mnemonicParsing="false" onMouseClicked="#addproductsell" prefHeight="45.0" prefWidth="187.0" styleClass="add" stylesheets="@../style/style.css" text="بيع" />
                              <Label fx:id="sellsuce" alignment="TOP_CENTER" contentDisplay="CENTER" layoutX="218.0" layoutY="528.0" prefHeight="18.0" prefWidth="280.0" style="-fx-text-fill: #00ff00;" />
                              <Button contentDisplay="CENTER" layoutX="330.0" layoutY="453.0" mnemonicParsing="false" onMouseClicked="#cancelsell" prefHeight="45.0" prefWidth="126.0" styleClass="cancel" stylesheets="@../style/style.css" text="الغاء" />
-                  <Label layoutX="545.0" layoutY="223.0" styleClass="lbl" stylesheets="@../style/style.css" text="سعر المباع به :" textAlignment="CENTER" />
-                  <TextField id="price" fx:id="tfpricesell" alignment="CENTER_RIGHT" layoutX="130.0" layoutY="211.0" prefHeight="38.0" prefWidth="394.0" promptText="سعر المباع به " styleClass="textfield" stylesheets="@../style/style.css" />
-                  <Label fx:id="categorysell" alignment="CENTER_RIGHT" layoutX="232.0" layoutY="336.0" prefHeight="34.0" prefWidth="290.0" style="-fx-font-size: 20;" text="Label" />
-                  <Label fx:id="firstpricesell" alignment="CENTER_RIGHT" layoutX="6.0" layoutY="110.0" prefHeight="34.0" prefWidth="520.0" style="-fx-font-size: 20;" text="Label" />
-                  <Label fx:id="namesell" alignment="CENTER_RIGHT" layoutX="6.0" layoutY="55.0" prefHeight="34.0" prefWidth="519.0" style="-fx-font-size: 20;" text="Label" />
-                  <Label fx:id="pricesell" alignment="CENTER_RIGHT" layoutX="8.0" layoutY="162.0" prefHeight="34.0" prefWidth="520.0" style="-fx-font-size: 20;" text="Label" />
-                  <Label fx:id="quantityselllabel" layoutX="8.0" layoutY="6.0" text="Label" visible="false" />
+                             <Label layoutX="545.0" layoutY="223.0" styleClass="lbl" stylesheets="@../style/style.css" text="سعر المباع به :" textAlignment="CENTER" />
+                             <TextField id="price" fx:id="tfpricesell" alignment="CENTER_RIGHT" layoutX="130.0" layoutY="211.0" prefHeight="38.0" prefWidth="394.0" promptText="سعر المباع به " styleClass="textfield" stylesheets="@../style/style.css" />
+                             <Label fx:id="categorysell" alignment="CENTER_RIGHT" layoutX="232.0" layoutY="336.0" prefHeight="34.0" prefWidth="290.0" style="-fx-font-size: 20;" text="Label" />
+
+                             <Label fx:id="namesell" alignment="CENTER_RIGHT" layoutX="6.0" layoutY="119.0" prefHeight="34.0" prefWidth="519.0" style="-fx-font-size: 20;" text="Label" />
+                             <Label fx:id="pricesell" alignment="CENTER_RIGHT" layoutX="8.0" layoutY="162.0" prefHeight="34.0" prefWidth="520.0" style="-fx-font-size: 20;" text="Label" />
+                             <Label fx:id="quantityselllabel" layoutX="8.0" layoutY="6.0" text="Label" visible="false" />
+                             <Label fx:id="firstpricesell" alignment="CENTER_RIGHT" layoutX="40.0" layoutY="14.0" prefHeight="34.0" prefWidth="520.0" style="-fx-font-size: 20;" text="Label" />
 
                          </children>
                      </Pane>
-            <Label fx:id="idsell" alignment="CENTER_RIGHT" layoutX="300.0" layoutY="24.0" prefHeight="34.0" prefWidth="69.0" style="-fx-font-size: 20;" text="Label" />
+                     <Label fx:id="idsell" alignment="CENTER_RIGHT" layoutX="300.0" layoutY="24.0" prefHeight="34.0" prefWidth="69.0" style="-fx-font-size: 20;" text="Label" />
                  </children>
+             </Pane>
+             <GridPane fx:id="profitspane" prefHeight="742.0" prefWidth="913.0" BorderPane.alignment="CENTER">
+                 <columnConstraints>
+                     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                 </columnConstraints>
+                 <rowConstraints>
+                     <RowConstraints maxHeight="560.0" minHeight="10.0" percentHeight="0.0" prefHeight="65.0" valignment="CENTER" />
+                     <RowConstraints maxHeight="560.0" minHeight="10.0" prefHeight="65.0" vgrow="SOMETIMES" />
+                     <RowConstraints maxHeight="560.0" minHeight="10.0" prefHeight="65.0" vgrow="SOMETIMES" />
+                     <RowConstraints maxHeight="611.0" minHeight="10.0" prefHeight="533.0" vgrow="SOMETIMES" />
+                 </rowConstraints>
+                 <children>
+                     <TableView fx:id="profitstable" editable="true" prefHeight="560.0" prefWidth="755.0" stylesheets="@../style/style.css" GridPane.rowIndex="3">
+                         <columns>
+
+
+                             <TableColumn fx:id="action" prefWidth="75.0" text="" />
+
+                             <TableColumn fx:id="proex" minWidth="0.0" prefWidth="10.0" text="  الارباح -المصاريف  " />
+                             <TableColumn fx:id="expenses" minWidth="0.0" prefWidth="0.0" text=" المصاريف " />
+                             <TableColumn fx:id="profits" prefWidth="239.0" styleClass="column-header" text=" الارباح" />
+                             <TableColumn fx:id="created" prefWidth="106.0" text=" تاريخ" />
+
+                             <TableColumn fx:id="idtable" prefWidth="106.0" text=" ID" />
+
+                         </columns>
+                         <columnResizePolicy>
+                             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                         </columnResizePolicy>
+                     </TableView>
+
+
+
+                     <Label alignment="CENTER" contentDisplay="CENTER" nodeOrientation="RIGHT_TO_LEFT" prefHeight="54.0" prefWidth="750.0" style="-fx-font-size: 40; -fx-text-fill: #003b55;" text="الارباح و المصاريف" textAlignment="JUSTIFY" textOverrun="CLIP">
+                         <padding>
+                             <Insets left="5.0" right="20.0" />
+                         </padding>
+                         <GridPane.margin>
+                             <Insets left="70.0" />
+                         </GridPane.margin>
+                     </Label>
+                     <DatePicker fx:id="date" nodeOrientation="RIGHT_TO_LEFT" onKeyPressed="#getbydate" prefHeight="37.0" prefWidth="360.0" style="-fx-background-color: #fff;" GridPane.rowIndex="1">
+                         <opaqueInsets>
+                             <Insets />
+                         </opaqueInsets>
+                         <GridPane.margin>
+                             <Insets left="500.0" />
+                         </GridPane.margin>
+                     </DatePicker>
+                     <TextField fx:id="expensestf" alignment="CENTER" prefHeight="26.0" prefWidth="429.0" promptText="اضافة مصروف" GridPane.rowIndex="2" />
+                 </children>
+             </GridPane>
+             <GridPane fx:id="selltable" prefHeight="742.0" prefWidth="913.0" BorderPane.alignment="CENTER">
+                 <columnConstraints>
+                     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                 </columnConstraints>
+                 <rowConstraints>
+                     <RowConstraints maxHeight="560.0" minHeight="10.0" percentHeight="0.0" prefHeight="65.0" valignment="CENTER" />
+                     <RowConstraints maxHeight="560.0" minHeight="10.0" prefHeight="65.0" vgrow="SOMETIMES" />
+                     <RowConstraints maxHeight="560.0" minHeight="10.0" prefHeight="65.0" vgrow="SOMETIMES" />
+                     <RowConstraints maxHeight="611.0" minHeight="10.0" prefHeight="533.0" vgrow="SOMETIMES" />
+                 </rowConstraints>
+                 <children>
+                     <TableView fx:id="selltableview" editable="true" prefHeight="560.0" prefWidth="755.0" stylesheets="@../style/style.css" GridPane.rowIndex="3">
+                         <columns>
+                             <TableColumn fx:id="sellcolaction" prefWidth="75.0" />
+
+                             <TableColumn fx:id="sellwinner" prefWidth="75.0" text="الربح" />
+                             <TableColumn fx:id="selltotalprice" prefWidth="75.0" text="سعر الكل" />
+                             <TableColumn fx:id="sellquantity" prefWidth="20.0" text="الكمية" />
+                             <TableColumn fx:id="sellpricesell" minWidth="0.0" prefWidth="10.0" text="سعر  المباع به " />
+                             <TableColumn fx:id="sellprice" minWidth="0.0" prefWidth="10.0" text="سعر  للبيع " />
+                             <TableColumn fx:id="sellfirstprice" minWidth="0.0" prefWidth="0.0" text="سعر المنتتج" />
+                             <TableColumn fx:id="sellname" prefWidth="239.0" styleClass="column-header" text="اسم المنتج" />
+                             <TableColumn fx:id="sellID" prefWidth="106.0" text=" ID" />
+
+                             <TableColumn fx:id="sellIDsell" prefWidth="106.0" text=" ID" />
+
+                         </columns>
+                         <columnResizePolicy>
+                             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                         </columnResizePolicy>
+                     </TableView>
+                     <TextField fx:id="selltfsearch" alignment="CENTER_RIGHT" onKeyPressed="#sellsearchmethode" prefHeight="25.0" prefWidth="824.0" promptText="البحث" GridPane.rowIndex="2">
+                         <font>
+                             <Font size="14.0" />
+                         </font>
+                         <GridPane.margin>
+                             <Insets left="350.0" right="40.0" />
+                         </GridPane.margin>
+                     </TextField>
+                     <Button mnemonicParsing="false" onMouseClicked="#sellsearch" prefHeight="31.0" prefWidth="56.0" styleClass="search" stylesheets="@../style/style.css" text="بحث" GridPane.rowIndex="2">
+                         <GridPane.margin>
+                             <Insets left="290.0" />
+                         </GridPane.margin>
+                         <font>
+                             <Font size="15.0" />
+                         </font>
+                     </Button>
+
+                     <ComboBox fx:id="sellcategorycombobox" nodeOrientation="RIGHT_TO_LEFT" onKeyPressed="#getsellproductbycategory" prefHeight="38.0" prefWidth="261.0" promptText="بحث بنوع " style="-fx-background-color: #fff;" GridPane.rowIndex="1">
+                         <GridPane.margin>
+                             <Insets left="100.0" />
+                         </GridPane.margin></ComboBox>
+                     <Label alignment="CENTER" contentDisplay="CENTER" nodeOrientation="RIGHT_TO_LEFT" prefHeight="54.0" prefWidth="750.0" style="-fx-font-size: 40; -fx-text-fill: #003b55;" text="المنتجات المباعة" textAlignment="JUSTIFY" textOverrun="CLIP">
+                         <padding>
+                             <Insets left="5.0" right="20.0" />
+                         </padding>
+                         <GridPane.margin>
+                             <Insets left="70.0" />
+                         </GridPane.margin>
+                     </Label>
+                     <DatePicker fx:id="selldayepicker" nodeOrientation="RIGHT_TO_LEFT" onKeyPressed="#getproductbydate" prefHeight="37.0" prefWidth="244.0" style="-fx-background-color: #fff;" GridPane.rowIndex="1">
+                         <opaqueInsets>
+                             <Insets />
+                         </opaqueInsets>
+                         <GridPane.margin>
+                             <Insets left="500.0" />
+                         </GridPane.margin>
+                     </DatePicker>
+                     <Button mnemonicParsing="false" onMouseClicked="#deleteallsell" prefHeight="32.0" prefWidth="123.0" styleClass="delete" stylesheets="@../style/style.css" text="حذف الكل " GridPane.rowIndex="2" />
+
+                 </children>
+             </GridPane>
+<!--->
+                       page
+                       <!-->
+
+                    <GridPane id="page1" fx:id="table" prefHeight="742.0" prefWidth="913.0" BorderPane.alignment="CENTER">
+                      <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                      </columnConstraints>
+                      <rowConstraints>
+                        <RowConstraints maxHeight="560.0" minHeight="10.0" prefHeight="65.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="560.0" minHeight="10.0" prefHeight="65.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="611.0" minHeight="10.0" prefHeight="533.0" vgrow="SOMETIMES" />
+                      </rowConstraints>
+                       <children>
+                          <TableView fx:id="tableview" editable="true" prefHeight="560.0" prefWidth="755.0" stylesheets="@../style/style.css" GridPane.rowIndex="2">
+                            <columns>
+                                <TableColumn fx:id="colaction" prefWidth="75.0" />
+
+                                <TableColumn fx:id="winner" prefWidth="75.0" text="الربح" />
+                                <TableColumn fx:id="totalpricec" prefWidth="75.0" text="سعر الكل" />
+                              <TableColumn fx:id="quantity" prefWidth="20.0" text="الكمية" />
+                              <TableColumn fx:id="price" minWidth="0.0" prefWidth="10.0" text="سعر  للبيع " />
+                                <TableColumn fx:id="firstprice" minWidth="0.0" prefWidth="0.0" text="سعر المنتتج" />
+                                <TableColumn fx:id="name" prefWidth="239.0" styleClass="column-header" text="اسم المنتج" />
+                                <TableColumn fx:id="ID" prefWidth="106.0" text=" ID" />
+   
+
+
+                            </columns>
+                             <columnResizePolicy>
+                                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                             </columnResizePolicy>
+                          </TableView>
+                          <TextField fx:id="tfsearch" alignment="CENTER_RIGHT" onKeyPressed="#searchmethode" prefHeight="25.0" prefWidth="824.0" promptText="البحث">
+                             <font>
+                                <Font size="14.0" />
+                             </font>
+                             <GridPane.margin>
+                                <Insets left="350.0" right="40.0" />
+                             </GridPane.margin>
+                          </TextField>
+                          <Button mnemonicParsing="false" onMouseClicked="#search" prefHeight="31.0" prefWidth="56.0" styleClass="search" stylesheets="@../style/style.css" text="بحث">
+                             <GridPane.margin>
+                                <Insets left="290.0" />
+                             </GridPane.margin>
+                             <font>
+                                <Font size="15.0" />
+                             </font>
+                          </Button>
+                    <Label fx:id="labeldelete" alignment="CENTER" nodeOrientation="RIGHT_TO_LEFT" prefHeight="18.0" prefWidth="207.0" style="-fx-text-fill: #d51010;" />
+            <ComboBox fx:id="categorycombobox" nodeOrientation="RIGHT_TO_LEFT" onKeyPressed="#getproductbycategory" prefHeight="38.0" prefWidth="261.0" promptText="بحث بنوع " style="-fx-background-color: #fff;" />
+            <Button mnemonicParsing="false" onMouseClicked="#deleteallproduct" prefHeight="32.0" prefWidth="115.0" styleClass="delete" stylesheets="@../style/style.css" text="حذف الكل " GridPane.rowIndex="1" />
+                       </children>
+                    </GridPane>
+             <!---->
+             <!---->
+
+<!-->
+<!-->
+
+             <Pane fx:id="loginpane" prefHeight="723.0" prefWidth="737.0" styleClass="pane" stylesheets="@../style/login.css">
+         <children>
+            <Circle layoutX="31.0" layoutY="635.0" radius="17.0" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="0.0">
+               <fill>
+                  <RadialGradient centerX="0.5" centerY="0.5" radius="0.5">
+                     <stops>
+                        <Stop color="#07ebde" />
+                        <Stop color="#0228ff" offset="1.0" />
+                     </stops>
+                  </RadialGradient>
+               </fill>
+            </Circle>
+            <Circle layoutX="123.0" layoutY="681.0" radius="17.0" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="0.0">
+               <fill>
+                  <RadialGradient centerX="0.5" centerY="0.5" radius="0.5">
+                     <stops>
+                        <Stop color="#07ebde" />
+                        <Stop color="#0228ff" offset="1.0" />
+                     </stops>
+                  </RadialGradient>
+               </fill>
+            </Circle>
+            <Circle layoutX="39.0" layoutY="704.0" radius="25.0" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="0.0">
+               <fill>
+                  <RadialGradient centerX="0.5" centerY="0.5" radius="0.5">
+                     <stops>
+                        <Stop color="#07ebde" />
+                        <Stop color="#0228ff" offset="1.0" />
+                     </stops>
+                  </RadialGradient>
+               </fill>
+            </Circle>
+            <Circle layoutX="89.0" layoutY="618.0" radius="25.0" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="0.0">
+               <fill>
+                  <RadialGradient centerX="0.5" centerY="0.5" radius="0.5">
+                     <stops>
+                        <Stop color="#07ebde" />
+                        <Stop color="#0228ff" offset="1.0" />
+                     </stops>
+                  </RadialGradient>
+               </fill>
+            </Circle>
+            <Circle layoutX="39.0" layoutY="570.0" radius="12.0" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="0.0">
+               <fill>
+                  <RadialGradient centerX="0.5" centerY="0.5" radius="0.5">
+                     <stops>
+                        <Stop color="#07ebde" />
+                        <Stop color="#0228ff" offset="1.0" />
+                     </stops>
+                  </RadialGradient>
+               </fill>
+            </Circle>
+            <Circle layoutX="88.0" layoutY="721.0" radius="12.0" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="0.0">
+               <fill>
+                  <RadialGradient centerX="0.5" centerY="0.5" radius="0.5">
+                     <stops>
+                        <Stop color="#07ebde" />
+                        <Stop color="#0228ff" offset="1.0" />
+                     </stops>
+                  </RadialGradient>
+               </fill>
+            </Circle>
+            <Circle layoutX="88.0" layoutY="541.0" radius="17.0" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="0.0">
+               <fill>
+                  <RadialGradient centerX="0.5" centerY="0.5" radius="0.5">
+                     <stops>
+                        <Stop color="#07ebde" />
+                        <Stop color="#0228ff" offset="1.0" />
+                     </stops>
+                  </RadialGradient>
+               </fill>
+            </Circle>
+            <Circle layoutX="161.0" layoutY="631.0" radius="29.0" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="0.0">
+               <fill>
+                  <RadialGradient centerX="0.5" centerY="0.5" radius="0.5">
+                     <stops>
+                        <Stop color="#07ebde" />
+                        <Stop color="#0228ff" offset="1.0" />
+                     </stops>
+                  </RadialGradient>
+               </fill>
+            </Circle>
+            <Circle fx:id="login" layoutX="175.0" layoutY="721.0" radius="23.0" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="0.0">
+               <fill>
+                  <RadialGradient centerX="0.5" centerY="0.5" radius="0.5">
+                     <stops>
+                        <Stop color="#07ebde" />
+                        <Stop color="#0228ff" offset="1.0" />
+                     </stops>
+                  </RadialGradient>
+               </fill>
+            </Circle>
+            <Circle layoutX="39.0" layoutY="496.0" radius="17.0" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="0.0">
+               <fill>
+                  <RadialGradient centerX="0.5" centerY="0.5" radius="0.5">
+                     <stops>
+                        <Stop color="#07ebde" />
+                        <Stop color="#0228ff" offset="1.0" />
+                     </stops>
+                  </RadialGradient>
+               </fill>
+            </Circle>
+            <TextField fx:id="tfusername" alignment="CENTER" layoutX="380.0" layoutY="321.0" prefHeight="43.0" prefWidth="359.0" promptText="اسم المستخدم" style="-fx-background-color: #fff;" styleClass="textfield" stylesheets="@../style/login.css" />
+            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="395.0" layoutY="107.0" prefHeight="77.0" prefWidth="318.0" styleClass="lbl" stylesheets="@../style/login.css" text="تسجيل الدخول" />
+            <PasswordField fx:id="tfpw" alignment="CENTER" layoutX="385.0" layoutY="409.0" prefHeight="37.0" prefWidth="358.0" promptText="كلمة المرور" style="-fx-background-color: #fff;" styleClass="textfield" stylesheets="@../style/login.css" />
+            <Button fx:id="btnlogin" layoutX="461.0" layoutY="530.0" mnemonicParsing="false" onMouseClicked="#login" prefHeight="43.0" prefWidth="232.0" styleClass="btn" stylesheets="@../style/login.css" text="دخول" />
+            <Label fx:id="fiald" alignment="CENTER" contentDisplay="RIGHT" layoutX="311.0" layoutY="609.0" prefHeight="18.0" prefWidth="426.0" styleClass="red" stylesheets="@../style/login.css" textAlignment="CENTER" />
+            <CheckBox fx:id="checkbox" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="596.0" layoutY="478.0" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" onMouseClicked="#showpw" text="عرض كلمة المرور" textFill="#1d2cf5" />
+            <TextField fx:id="tfshowpw" alignment="CENTER" layoutX="385.0" layoutY="409.0" prefHeight="37.0" prefWidth="358.0" promptText="كلمة المرور" style="-fx-background-color: #fff;" styleClass="textfield" stylesheets="@../style/login.css" visible="false" />
+         </children>
              </Pane>
 
 
          </center>
          <right>
-            <VBox prefHeight="742.0" prefWidth="295.0" style="-fx-background-color: #1C61B1;" BorderPane.alignment="CENTER">
+            <VBox fx:id="tools" prefHeight="742.0" prefWidth="295.0" style="-fx-background-color: #1C61B1;" BorderPane.alignment="CENTER">
                <children>
                   <Pane prefHeight="200.0" prefWidth="200.0">
                      <children>
@@ -168,19 +460,149 @@
                         <Insets left="100.0" />
                      </padding>
                   </Button>
-                  <Button alignment="BASELINE_LEFT" mnemonicParsing="false" prefHeight="57.0" prefWidth="332.0" styleClass="btn" stylesheets="@../style/style.css" text="المنتجات المباعة">
+                  <Button alignment="BASELINE_LEFT" mnemonicParsing="false" onMouseClicked="#btngotoseltedproduct" prefHeight="57.0" prefWidth="332.0" styleClass="btn" stylesheets="@../style/style.css" text="المنتجات المباعة">
                      <padding>
                         <Insets left="100.0" />
                      </padding>
                   </Button>
-                  <Button alignment="BASELINE_LEFT" mnemonicParsing="false" prefHeight="57.0" prefWidth="332.0" styleClass="btn" stylesheets="@../style/style.css" text="المصاريف و الارباح">
+                  <Button alignment="BASELINE_LEFT" mnemonicParsing="false" onMouseClicked="#gotoprofits" prefHeight="57.0" prefWidth="332.0" styleClass="btn" stylesheets="@../style/style.css" text="المصاريف و الارباح">
                      <padding>
                         <Insets left="100.0" />
                      </padding>
                   </Button>
+            <Pane prefHeight="321.0" prefWidth="295.0">
+               <children>
+                  <Label layoutX="162.0" layoutY="289.0" prefHeight="18.0" prefWidth="123.0" style="-fx-text-fill: #ffff;" text=" Made by LB_TECH" />
+               </children>
+            </Pane>
                  
                </children>
             </VBox>
+             <Pane fx:id="sidet" prefHeight="321.0" prefWidth="295.0" styleClass="pane" stylesheets="@../style/login.css">
+                 <children>
+                     <Label layoutX="172.0" layoutY="698.0" prefHeight="18.0" prefWidth="123.0" style="-fx-text-fill: #0b2e95;" text=" Made by LB_TECH" />
+            <Circle layoutX="148.0" layoutY="29.0" radius="21.0" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="0.0">
+               <fill>
+                  <RadialGradient centerX="0.5" centerY="0.5" radius="0.5">
+                     <stops>
+                        <Stop color="#07ebde" />
+                        <Stop color="#0228ff" offset="1.0" />
+                     </stops>
+                  </RadialGradient>
+               </fill>
+            </Circle>
+            <Circle layoutX="101.0" layoutY="76.0" radius="26.0" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="0.0">
+               <fill>
+                  <RadialGradient centerX="0.5" centerY="0.5" radius="0.5">
+                     <stops>
+                        <Stop color="#07ebde" />
+                        <Stop color="#0228ff" offset="1.0" />
+                     </stops>
+                  </RadialGradient>
+               </fill>
+            </Circle>
+            <Circle layoutX="200.0" layoutY="29.0" radius="11.0" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="0.0">
+               <fill>
+                  <RadialGradient centerX="0.5" centerY="0.5" radius="0.5">
+                     <stops>
+                        <Stop color="#07ebde" />
+                        <Stop color="#0228ff" offset="1.0" />
+                     </stops>
+                  </RadialGradient>
+               </fill>
+            </Circle>
+            <Circle layoutX="281.0" layoutY="121.0" radius="21.0" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="0.0">
+               <fill>
+                  <RadialGradient centerX="0.5" centerY="0.5" radius="0.5">
+                     <stops>
+                        <Stop color="#07ebde" />
+                        <Stop color="#0228ff" offset="1.0" />
+                     </stops>
+                  </RadialGradient>
+               </fill>
+            </Circle>
+            <Circle layoutX="159.0" layoutY="76.0" radius="11.0" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="0.0">
+               <fill>
+                  <RadialGradient centerX="0.5" centerY="0.5" radius="0.5">
+                     <stops>
+                        <Stop color="#07ebde" />
+                        <Stop color="#0228ff" offset="1.0" />
+                     </stops>
+                  </RadialGradient>
+               </fill>
+            </Circle>
+            <Circle layoutX="234.0" layoutY="132.0" radius="11.0" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="0.0">
+               <fill>
+                  <RadialGradient centerX="0.5" centerY="0.5" radius="0.5">
+                     <stops>
+                        <Stop color="#07ebde" />
+                        <Stop color="#0228ff" offset="1.0" />
+                     </stops>
+                  </RadialGradient>
+               </fill>
+            </Circle>
+            <Circle layoutX="202.0" layoutY="89.0" radius="19.0" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="0.0">
+               <fill>
+                  <RadialGradient centerX="0.5" centerY="0.5" radius="0.5">
+                     <stops>
+                        <Stop color="#07ebde" />
+                        <Stop color="#0228ff" offset="1.0" />
+                     </stops>
+                  </RadialGradient>
+               </fill>
+            </Circle>
+            <Circle layoutX="159.0" layoutY="132.0" radius="21.0" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="0.0">
+               <fill>
+                  <RadialGradient centerX="0.5" centerY="0.5" radius="0.5">
+                     <stops>
+                        <Stop color="#07ebde" />
+                        <Stop color="#0228ff" offset="1.0" />
+                     </stops>
+                  </RadialGradient>
+               </fill>
+            </Circle>
+            <Circle layoutX="234.0" layoutY="189.0" radius="19.0" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="0.0">
+               <fill>
+                  <RadialGradient centerX="0.5" centerY="0.5" radius="0.5">
+                     <stops>
+                        <Stop color="#07ebde" />
+                        <Stop color="#0228ff" offset="1.0" />
+                     </stops>
+                  </RadialGradient>
+               </fill>
+            </Circle>
+            <Circle layoutX="172.0" layoutY="181.0" radius="11.0" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="0.0">
+               <fill>
+                  <RadialGradient centerX="0.5" centerY="0.5" radius="0.5">
+                     <stops>
+                        <Stop color="#07ebde" />
+                        <Stop color="#0228ff" offset="1.0" />
+                     </stops>
+                  </RadialGradient>
+               </fill>
+            </Circle>
+            <Circle fx:id="side" layoutX="56.0" layoutY="29.0" radius="19.0" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="0.0">
+               <fill>
+                  <RadialGradient centerX="0.5" centerY="0.5" radius="0.5">
+                     <stops>
+                        <Stop color="#07ebde" />
+                        <Stop color="#0228ff" offset="1.0" />
+                     </stops>
+                  </RadialGradient>
+               </fill>
+            </Circle>
+            <Circle layoutX="257.0" layoutY="36.0" radius="30.0" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="0.0">
+               <fill>
+                  <RadialGradient centerX="0.5" centerY="0.5" radius="0.5">
+                     <stops>
+                        <Stop color="#07ebde" />
+                        <Stop color="#0228ff" offset="1.0" />
+                     </stops>
+                  </RadialGradient>
+               </fill>
+            </Circle>
+                 </children>
+             </Pane>
          </right>
 
       </BorderPane>

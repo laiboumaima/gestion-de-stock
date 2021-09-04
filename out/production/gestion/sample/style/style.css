@@ -8,6 +8,12 @@
     -fx-text-fill: #ffffff;
     -fx-background-color: #1C61B1;
 }
+.txtred{
+    -fx-text-fill: #fc0606;
+}
+.txtgreen{
+    -fx-text-fill: #1d9700;
+}
 
 .table-view .column-header,
 .table-view .column-header .label,

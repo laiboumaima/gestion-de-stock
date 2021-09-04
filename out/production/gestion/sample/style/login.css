@@ -1,0 +1,40 @@
+.lbl{
+    -fx-text-fill: #0054ff;
+    -fx-font-size: 50;
+
+}
+.red{
+    -fx-text-fill: #ff001e;
+
+
+}
+.btn{
+    -fx-font-size: 20;
+    -fx-text-fill: #ffffff;
+    -fx-background-color: #1C61B1;
+    -fx-border-radius: 50;
+    -fx-background-radius: 50 ;
+}
+.btn:hover{
+    -fx-font-size: 20;
+    -fx-text-fill: #ffffff;
+    -fx-background-color: #5d93dc;
+    -fx-border-radius: 50;
+    -fx-background-radius: 50 ;
+}
+.pane{
+    -fx-background-color: #ffffff;
+}
+.textfield {
+    -fx-background-color: -fx-text-box-border, -fx-background ;
+    -fx-background-insets: 0, 0 0 1 0 ;
+    -fx-border-color: #00b7ff;
+    -fx-border-style: solid;
+    -fx-border-radius: 50;
+
+    -fx-background-radius: 20 ;
+    -fx-font-size: 20;
+}
+.textfield:hover {
+    -fx-background-color: #c2c2c2 ;
+}

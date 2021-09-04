@@ -1,5 +1,7 @@
 package sample.entities;
 
+import java.sql.Date;
+
 public class product {
 
     private int id ;
@@ -14,6 +16,7 @@ public class product {
 
     public product() {
     }
+
 
 
 

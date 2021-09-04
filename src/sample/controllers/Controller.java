@@ -8,28 +8,33 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
+import javafx.scene.layout.*;
 
 import javafx.scene.paint.Color;
+import javafx.stage.Stage;
 import javafx.util.Callback;
 import sample.Connection.Databaseconnection;
+import sample.entities.Seltproduct;
 import sample.entities.product;
+import sample.entities.profits;
+import sample.entities.user;
 
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import java.sql.*;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Date;
+import java.util.Locale;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -41,7 +46,13 @@ public class Controller implements Initializable {
     @FXML
     public TableColumn winner;
     @FXML
-    public Label currenttime;
+    public TextField tfusername;
+    @FXML
+    public PasswordField tfpw;
+    @FXML
+    public Button btnlogin;
+    @FXML
+    public Label textsec;
     @FXML
     public TextField tfsearch;
     @FXML
@@ -88,6 +99,98 @@ public class Controller implements Initializable {
     public Label sellsuce;
     @FXML
     public Label quantityselllabel;
+    @FXML
+    public ComboBox categorycombobox;
+    @FXML
+    public GridPane selltable;
+    @FXML
+    public ComboBox sellcategorycombobox;
+    @FXML
+    public Label selllabeldelete;
+    @FXML
+    public TextField selltfsearch;
+    @FXML
+    public TableColumn sellID;
+    @FXML
+    public TableColumn sellname;
+    @FXML
+    public TableColumn sellfirstprice;
+    @FXML
+    public TableColumn sellprice;
+    @FXML
+    public TableColumn sellpricesell;
+    @FXML
+    public TableColumn sellquantity;
+    @FXML
+    public TableColumn selltotalprice;
+    @FXML
+    public TableColumn sellwinner;
+    @FXML
+    public TableColumn sellcolaction;
+    @FXML
+    public TableView selltableview;
+    @FXML
+    public DatePicker selldayepicker;
+
+    @FXML
+    public Pane sellproductpaneedit;
+    @FXML
+    public TextField tfqselledit;
+    @FXML
+    public Label sellsuceedit;
+    @FXML
+    public TextField tfpriceselledit;
+    @FXML
+    public Label idselledit;
+    @FXML
+    public Label priceselledit;
+    @FXML
+    public Label quantityselllabeledit;
+    @FXML
+    public Label categoryselledit;
+    @FXML
+    public Label nameselledit;
+    @FXML
+    public Label firstpriceselledit;
+    @FXML
+    public TableColumn sellIDsell;
+    @FXML
+    public Label idselleditedit;
+    @FXML
+    public Label text;
+    @FXML
+    public GridPane profitspane;
+    @FXML
+    public TableView profitstable;
+    @FXML
+    public TableColumn action;
+    @FXML
+    public TableColumn proex;
+    @FXML
+    public TableColumn expenses;
+    @FXML
+    public TableColumn profits;
+    @FXML
+    public TableColumn created;
+    @FXML
+    public TableColumn idtable;
+    @FXML
+    public DatePicker date;
+    @FXML
+    public TextField expensestf;
+    @FXML
+    public Pane loginpane;
+    @FXML
+    public Pane sidet;
+    @FXML
+    public VBox tools;
+    @FXML
+
+    public Label fiald;
+    @FXML
+    public CheckBox checkbox;
+    @FXML
+    public TextField tfshowpw;
 
     Databaseconnection connectenow = new Databaseconnection();
     @FXML
@@ -126,16 +229,153 @@ public class Controller implements Initializable {
     public TableColumn <product,Integer>  ID;
     @FXML
     public TableColumn  <product,Float>   price;
-   //show product
-    public ObservableList<product> getproducts(){
-       ObservableList <product> productlist = FXCollections.observableArrayList();
-       Connection conn = connectenow.getconnention();
-       String query = "SELECT * FROM product";
+    //return list category
+    public void getcategories() throws SQLException {
+        ObservableList <String> categorylist = FXCollections.observableArrayList();
+        Connection conn = connectenow.getconnention();
+
+        String query1 = "SELECT DISTINCT category FROM product";
+        PreparedStatement ps =conn.prepareStatement(query1);
+        ResultSet rs = ps.executeQuery();
+
+            while (rs.next() ){
+
+
+                categorylist.add(rs.getString("category"));
+
+            }
+  categorycombobox.setItems(categorylist);
+            sellcategorycombobox.setItems(categorylist);
+
+        //
+
+    }
+
+    //get products from sell table
+    public ObservableList<Seltproduct> getproductssell(){
+        ObservableList <Seltproduct> productlist = FXCollections.observableArrayList();
+
+        Connection conn = connectenow.getconnention();
+        String query = "SELECT * FROM seltedproduct ";
+
         Statement st;
+
         ResultSet rs;
+
         try {
             st = conn.createStatement();
             rs =st.executeQuery(query);
+
+            Seltproduct products;
+            while (rs.next()){
+
+                float totalprice   = rs.getFloat("pricesell") *rs.getInt("quantity") ;
+                float firsttotalprice   = rs.getFloat("firstprice") *rs.getInt("quantity") ;
+                float winner = totalprice -firsttotalprice;
+                products =  new Seltproduct(rs.getInt("IDSELL"),rs.getInt("id"),rs.getString("name"),rs.getDate("created"),rs.getFloat("firstprice"),rs.getFloat("price"),rs.getFloat("pricesell"),rs.getInt("quantity"),rs.getString("category"), totalprice, winner);
+                productlist.add(products);
+
+            }
+
+
+        } catch (Exception exception) {
+            exception.printStackTrace();
+        }
+
+        return productlist ;
+    }
+//showseltd products
+public  void  showseltedproducts(){
+
+    ObservableList <Seltproduct> list = getproductssell();
+    sellIDsell.setCellValueFactory(new PropertyValueFactory<product,Integer>("idsell"));
+    sellIDsell.setVisible(false);
+    sellID.setCellValueFactory(new PropertyValueFactory<product,Integer>("id"));
+    sellID.setVisible(false);
+    sellname.setCellValueFactory(new PropertyValueFactory<product,String>("name"));
+    sellfirstprice.setCellValueFactory(new PropertyValueFactory<product,Float>("firstprice"));
+    sellfirstprice.setVisible(false);
+    sellprice.setCellValueFactory(new PropertyValueFactory<product,Float>("price"));
+    sellpricesell.setCellValueFactory(new PropertyValueFactory<product,Float>("sellprice"));
+    sellquantity.setCellValueFactory(new PropertyValueFactory<product,Integer>("quantity"));
+    selltotalprice.setCellValueFactory(new PropertyValueFactory<product,Float>("totalprice"));
+    sellwinner.setCellValueFactory(new PropertyValueFactory<product,Float>("winner") );
+
+    Callback<TableColumn<Seltproduct, Void>, TableCell<Seltproduct, Void>> cellFactory = new Callback<TableColumn<Seltproduct, Void>, TableCell<Seltproduct, Void>>() {
+
+        public TableCell<Seltproduct, Void> call(final TableColumn<Seltproduct, Void> param) {
+            final TableCell<Seltproduct, Void> cell = new TableCell<Seltproduct, Void>() {
+
+                private final Button editButton = new Button("تعديل");
+
+
+                private final Button deleteButton = new Button("حذف");
+                private final HBox pane = new HBox(deleteButton, editButton);
+
+
+
+                { pane.getStyleClass().add("space");
+                    editButton.getStyleClass().add("edit");
+                    deleteButton.getStyleClass().add("delete");
+
+
+                    //editbutton action
+                    editButton.setOnAction((ActionEvent event) -> {
+                        Seltproduct data = getTableView().getItems().get(getIndex());
+                        editsellproductshow(data);
+
+                    });
+                    deleteButton.setOnAction((ActionEvent event) -> {
+                        Seltproduct data = getTableView().getItems().get(getIndex());
+                        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                        alert.setTitle("تنبيه ");
+
+                        alert.setContentText(" هل تريد حذف هذا المنتج " +data.getName() +"؟");
+
+                        Optional<ButtonType> result = alert.showAndWait();
+                        if (result.get() == ButtonType.OK){
+                            String query  = "DELETE FROM seltedproduct WHERE IDSELL ="+data.getIdsell()+";";
+                            executeQuery(query);
+                            System.out.println("deletedata: " + data.getIdsell());
+                            showseltedproducts();
+
+                        }
+
+
+
+
+                    });
+
+                }
+
+                @Override
+                public void updateItem(Void item, boolean empty) {
+                    super.updateItem(item, empty);
+                    setGraphic(empty ? null : pane);
+                }
+            };
+            return cell;
+        }
+    };
+    sellcolaction.setCellFactory(cellFactory);
+    selltableview.setItems(list);
+
+}
+        //show product
+    public ObservableList<product> getproducts(){
+       ObservableList <product> productlist = FXCollections.observableArrayList();
+
+       Connection conn = connectenow.getconnention();
+       String query = "SELECT * FROM product";
+
+        Statement st;
+
+        ResultSet rs;
+
+        try {
+            st = conn.createStatement();
+            rs =st.executeQuery(query);
+
             product products;
             while (rs.next()){
 
@@ -144,17 +384,21 @@ public class Controller implements Initializable {
                 float winner = totalprice -firsttotalprice;
                 products =  new product(rs.getInt("id"),rs.getString("name"),rs.getFloat("firstprice"),rs.getFloat("price"),rs.getInt("quantity"),rs.getString("category"), totalprice, winner);
                  productlist.add(products);
+
             }
+
 
         } catch (Exception exception) {
             exception.printStackTrace();
         }
-        return productlist;
+
+        return productlist ;
     }
         public  void  showproducts(){
 
             ObservableList <product> list = getproducts();
             ID.setCellValueFactory(new PropertyValueFactory<product,Integer>("id"));
+            ID.setVisible(false);
             name.setCellValueFactory(new PropertyValueFactory<product,String>("name"));
           firstprice.setCellValueFactory(new PropertyValueFactory<product,Float>("firstprice"));
             price.setCellValueFactory(new PropertyValueFactory<product,Float>("price"));
@@ -184,6 +428,7 @@ public class Controller implements Initializable {
                             sellButton.setOnAction((ActionEvent event) -> {
                                 product data = getTableView().getItems().get(getIndex());
                                                 sellproductshow(data);
+                                sellsuce.setText("");
                             });
 
                             //editbutton action
@@ -203,10 +448,11 @@ public class Controller implements Initializable {
                                 if (result.get() == ButtonType.OK){
                                     String query  = "DELETE FROM product WHERE id ="+data.getId()+";";
                                     executeQuery(query);
+
                                     labeldelete.setText("تم حذف "+ data.getName()+" بنجاح");
 
                                     showproducts();
-
+                                    sellsuce.setText("");
                                 }
 
                                 System.out.println("deletedata: " + data.getId());
@@ -231,9 +477,20 @@ public class Controller implements Initializable {
         }
 
 
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         showproducts();
+        showseltedproducts();
+
+
+        try {
+            remplitable();
+            getcategories();
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
 
 
     }
@@ -280,7 +537,8 @@ public class Controller implements Initializable {
         }else{
             String query = " UPDATE product SET name = '"+ tfpnedit.getText() +"',firstprice =" +tffpriceedit.getText()+ ",price ="+tfpriceedit.getText()+",quantity ="+tfqedit.getText()+",category ='"+tfcategoryedit.getText() +"' WHERE id ="+idproductedit.getText()+";";
             executeQuery(query);
-
+            String query1 = " UPDATE seltedproduct SET name = '"+ tfpnedit.getText() +"',firstprice =" +tffpriceedit.getText()+ ",price ="+tfpriceedit.getText()+",category ='"+tfcategoryedit.getText() +"' WHERE id ="+idproductedit.getText()+";";
+            executeQuery(query1);
         }
     }
 
@@ -331,11 +589,66 @@ public class Controller implements Initializable {
         tableview.setItems(list);
 
     }
+    //product by category table selted
+    private ObservableList<Seltproduct> sellproductsbycategory(String key ) {
+        ObservableList <Seltproduct> productlist = FXCollections.observableArrayList();
+        Connection conn = connectenow.getconnention();
+
+        String query  = "SELECT * FROM seltedproduct WHERE CATEGORY  ='"+key+"';";
+        Statement st;
+        ResultSet rs;
+        try {
+            st = conn.createStatement();
+            rs =st.executeQuery(query);
+            Seltproduct products;
+            while (rs.next()){
+
+                float totalprice   = rs.getFloat("pricesell") *rs.getInt("quantity") ;
+                float firsttotalprice   = rs.getFloat("firstprice") *rs.getInt("quantity") ;
+                float winner = totalprice -firsttotalprice;
+                products =  new Seltproduct(rs.getInt("IDSELL"),rs.getInt("id"),rs.getString("name"),rs.getDate("created"),rs.getFloat("firstprice"),rs.getFloat("price"),rs.getFloat("pricesell"),rs.getInt("quantity"),rs.getString("category"), totalprice, winner);
+                productlist.add(products);
+            }
+
+        } catch (Exception exception) {
+            exception.printStackTrace();
+        }
+        return productlist;
+
+    }
+    // table product
+    private ObservableList<product> productsbycategory(String key ) {
+        ObservableList <product> productlist = FXCollections.observableArrayList();
+        Connection conn = connectenow.getconnention();
+
+        String query  = "SELECT * FROM PRODUCT WHERE CATEGORY  ='"+key+"'; ";
+        Statement st;
+        ResultSet rs;
+        try {
+            st = conn.createStatement();
+            rs =st.executeQuery(query);
+            product products;
+            while (rs.next()){
+
+                float totalprice   = rs.getFloat("price") *rs.getInt("quantity") ;
+                float firsttotalprice   = rs.getFloat("firstprice") *rs.getInt("quantity") ;
+                float winner = totalprice -firsttotalprice;
+                products =  new product(rs.getInt("id"),rs.getString("name"),rs.getFloat("firstprice"),rs.getFloat("price"),rs.getInt("quantity"),rs.getString("category"), totalprice, winner);
+                productlist.add(products);
+            }
+
+        } catch (Exception exception) {
+            exception.printStackTrace();
+        }
+        return productlist;
+
+    }
+
     private ObservableList<product> searchble() {
         ObservableList <product> productlist = FXCollections.observableArrayList();
         Connection conn = connectenow.getconnention();
         String key  =tfsearch.getText();
-        String query  = "SELECT *FROM PRODUCT WHERE NAME  ='"+key+"' or CATEGORY  ='"+key+"';";
+        String query  = "SELECT * FROM PRODUCT WHERE NAME  ='"+key+"' or CATEGORY  ='"+key+"' ;";
         Statement st;
         ResultSet rs;
         try {
@@ -369,32 +682,52 @@ public void editproductshow(product product){
 
 
 }
+//////
+public void editsellproductshow(Seltproduct product){
+    pagehome.setCenter(sellproductpaneedit);
+    quantityselllabeledit.setText(String.valueOf(product.getQuantity()));
+    idselledit.setText(String.valueOf(product.getId()));
+    tfpriceselledit.setText(String.valueOf(product.getSellprice()));
+    nameselledit.setText(product.getName());
+    tfqselledit.setText(String.valueOf(product.getQuantity()));
+    categoryselledit.setText(product.getCategory());
+    firstpriceselledit.setText(String.valueOf(product.getFirstprice()) );
+    firstpriceselledit.setVisible(false);
+    priceselledit.setText(String.valueOf(product.getPrice()));
+    idselleditedit.setText(String.valueOf(product.getIdsell()));
+    textsec.setText("");
 
+
+}
 //sell product
 public void sellproductshow(product product){
     pagehome.setCenter(sellproductpane);
+
     quantityselllabel.setText(String.valueOf(product.getQuantity()));
     idsell.setText(String.valueOf(product.getId()));
     tfpricesell.setText(String.valueOf(product.getPrice()));
     namesell.setText(product.getName());
     categorysell.setText(product.getCategory());
     firstpricesell.setText(String.valueOf(product.getFirstprice()) );
+    firstpricesell.setVisible(false);
     pricesell.setText(String.valueOf(product.getPrice()));
 
 
 }
+
 //add to selttable
 public void addsellproduct( ){
 if (Integer.parseInt(quantityselllabel.getText())>0){
     if (tfqsell.getText().isEmpty()) {
-        String query = "INSERT INTO seltedproduct (id,name,created,firstprice,price,pricesell,quantity,category) VALUES (null,'"+namesell.getText()+"',now(),"+firstpricesell.getText()+","+pricesell.getText()+","+pricesell.getText()+", 1 ,'"+categorysell.getText()+ "');";
+        String query = "INSERT INTO seltedproduct (id,name,created,firstprice,price,pricesell,quantity,category) VALUES ("+idsell.getText()+",'"+namesell.getText()+"',now(),"+firstpricesell.getText()+","+pricesell.getText()+","+pricesell.getText()+", 1 ,'"+categorysell.getText()+ "');";
 
         executeQuery(query);
   String query1 = "UPDATE productSET quantity = quantity-1 WHERE id  ="+idsell.getText()+";";
+
         executeQuery(query1);
 
     }else{
-        String query = "INSERT INTO seltedproduct (id,name,created,firstprice,price,pricesell,quantity,category)VALUES (null,'"+namesell.getText()+"',now(),"+firstpricesell.getText()
+        String query = "INSERT INTO seltedproduct (id,name,created,firstprice,price,pricesell,quantity,category)VALUES ("+idsell.getText()+",'"+namesell.getText()+"',now(),"+firstpricesell.getText()
                 +","+pricesell.getText()+","+tfpricesell.getText()+","+tfqsell.getText()+",'"+categorysell.getText()+ "');";
 
         executeQuery(query);
@@ -407,8 +740,9 @@ if (Integer.parseInt(quantityselllabel.getText())>0){
     tfqsell.setText("");
 }
 else {
-    sellsuce.setTextFill(Color.RED);
+
     sellsuce.setText("نفذت الكمية");
+    sellsuce.setTextFill(Color.RED);
 
 }
 }
@@ -425,7 +759,7 @@ else {
         showproducts();
         labeldelete.setText("");
     }
-
+/////////////////////////////////////////////////////////////////////
     public void searchmethode(KeyEvent keyEvent) {
         ObservableList <product> list =   searchble();
         ID.setCellValueFactory(new PropertyValueFactory<product,Integer>("id"));
@@ -437,7 +771,7 @@ else {
         winner.setCellValueFactory(new PropertyValueFactory<product,Float>("winner") );
         tableview.setItems(list);
     }
-
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////
     public void cancelsell(MouseEvent mouseEvent) {
         pagehome.setCenter(table);
         showproducts();
@@ -446,12 +780,573 @@ else {
     }
 
     public void addproductsell(MouseEvent mouseEvent) {
-        if (Integer.parseInt(quantityselllabel.getText())>Integer.parseInt(tfqsell.getText()) || Integer.parseInt(quantityselllabel.getText())==  0  ){
-        addsellproduct( );
+        System.out.println(quantityselllabel.getText());
+
+        System.out.println(Integer.parseInt(tfqsell.getText()));
+        if (Integer.parseInt(quantityselllabel.getText())>=Integer.parseInt(tfqsell.getText()) && Integer.parseInt(quantityselllabel.getText())!=  0   ){
+       addsellproduct( );
     }else {
             sellsuce.setTextFill(Color.RED);
             sellsuce.setText(" الكمية  غير كافية");
         }
 
+
+    }
+///////////////////////////////////////////////////////////////////////////////////////////
+
+    public void getproductbycategory(KeyEvent keyEvent) {
+       String string= (String) categorycombobox.getSelectionModel().getSelectedItem();
+
+
+        ObservableList <product> list = productsbycategory(string);
+        ID.setCellValueFactory(new PropertyValueFactory<product,Integer>("id"));
+        name.setCellValueFactory(new PropertyValueFactory<product,String>("name"));
+        firstprice.setCellValueFactory(new PropertyValueFactory<product,Float>("firstprice"));
+        price.setCellValueFactory(new PropertyValueFactory<product,Float>("price"));
+        quantity.setCellValueFactory(new PropertyValueFactory<product,Integer>("quantity"));
+        totalpricec.setCellValueFactory(new PropertyValueFactory<product,Float>("totalprice"));
+        winner.setCellValueFactory(new PropertyValueFactory<product,Float>("winner") );
+        tableview.setItems(list);
+    }
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    public void btngotoseltedproduct(MouseEvent mouseEvent) {
+        pagehome.setCenter(selltable);
+        showseltedproducts();
+        try {
+            getcategories();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+
+
+    }
+/////////////////////////////////////////////////////////////////////////////////////////////////////
+    public void getsellproductbycategory(KeyEvent keyEvent) {
+        String string= (String) sellcategorycombobox.getSelectionModel().getSelectedItem();
+        ObservableList <Seltproduct> list = sellproductsbycategory(string);
+        ID.setCellValueFactory(new PropertyValueFactory<product,Integer>("id"));
+        name.setCellValueFactory(new PropertyValueFactory<product,String>("name"));
+        firstprice.setCellValueFactory(new PropertyValueFactory<product,Float>("firstprice"));
+        price.setCellValueFactory(new PropertyValueFactory<product,Float>("price"));
+        quantity.setCellValueFactory(new PropertyValueFactory<product,Integer>("quantity"));
+        totalpricec.setCellValueFactory(new PropertyValueFactory<product,Float>("totalprice"));
+        winner.setCellValueFactory(new PropertyValueFactory<product,Float>("winner") );
+        selltableview.setItems(list);
+    }
+//get product by date
+
+    public    ObservableList<Seltproduct> getproductsbydate(LocalDate key ) {
+        ObservableList <Seltproduct> productlist = FXCollections.observableArrayList();
+        Connection conn = connectenow.getconnention();
+
+        String query  = "SELECT * FROM seltedproduct WHERE created ='"+key+"';";
+        Statement st;
+        ResultSet rs;
+        try {
+            st = conn.createStatement();
+            rs =st.executeQuery(query);
+            Seltproduct products;
+            while (rs.next()){
+
+                float totalprice   = rs.getFloat("pricesell") *rs.getInt("quantity") ;
+                float firsttotalprice   = rs.getFloat("firstprice") *rs.getInt("quantity") ;
+                float winner = totalprice -firsttotalprice;
+                products =  new Seltproduct(rs.getInt("IDSELL"),rs.getInt("id"),rs.getString("name"),rs.getDate("created"),rs.getFloat("firstprice"),rs.getFloat("price"),rs.getFloat("pricesell"),rs.getInt("quantity"),rs.getString("category"), totalprice, winner);
+                productlist.add(products);
+            }
+
+        } catch (Exception exception) {
+            exception.printStackTrace();
+        }
+        return productlist;
+
+    }
+/////////////////////
+
+    public void getproductbydate(KeyEvent keyEvent) {
+       LocalDate key =  selldayepicker.getValue();
+
+        ObservableList <Seltproduct> list = getproductsbydate( key);
+        sellIDsell.setCellValueFactory(new PropertyValueFactory<product,Integer>("idsell"));
+        sellIDsell.setVisible(false);
+        sellID.setCellValueFactory(new PropertyValueFactory<product,Integer>("id"));
+        sellID.setVisible(false);
+        sellname.setCellValueFactory(new PropertyValueFactory<product,String>("name"));
+        sellfirstprice.setCellValueFactory(new PropertyValueFactory<product,Float>("firstprice"));
+        sellfirstprice.setVisible(false);
+        sellprice.setCellValueFactory(new PropertyValueFactory<product,Float>("price"));
+        sellpricesell.setCellValueFactory(new PropertyValueFactory<product,Float>("sellprice"));
+        sellquantity.setCellValueFactory(new PropertyValueFactory<product,Integer>("quantity"));
+        selltotalprice.setCellValueFactory(new PropertyValueFactory<product,Float>("totalprice"));
+        sellwinner.setCellValueFactory(new PropertyValueFactory<product,Float>("winner") );
+        selltableview.setItems(list);
+    }
+    //search  table 2
+
+    private ObservableList<Seltproduct> sellsearchble() {
+        ObservableList <Seltproduct> productlist = FXCollections.observableArrayList();
+        Connection conn = connectenow.getconnention();
+        String key  =selltfsearch.getText();
+        String query  = "SELECT * FROM seltedproduct WHERE NAME  ='"+key+"' or CATEGORY  ='"+key+"' ;";
+        Statement st;
+        ResultSet rs;
+        try {
+            st = conn.createStatement();
+            rs =st.executeQuery(query);
+            Seltproduct products;
+            while (rs.next()){
+
+                float totalprice   = rs.getFloat("pricesell") *rs.getInt("quantity") ;
+                float firsttotalprice   = rs.getFloat("firstprice") *rs.getInt("quantity") ;
+                float winner = totalprice -firsttotalprice;
+                products =  new Seltproduct(rs.getInt("IDSELL"),rs.getInt("id"),rs.getString("name"),rs.getDate("created"),rs.getFloat("firstprice"),rs.getFloat("price"),rs.getFloat("pricesell"),rs.getInt("quantity"),rs.getString("category"), totalprice, winner);
+                productlist.add(products);
+            }
+
+        } catch (Exception exception) {
+            exception.printStackTrace();
+        }
+        return productlist;
+
+    }
+    public void sellsearch(MouseEvent mouseEvent) {
+        ObservableList <Seltproduct> list = sellsearchble() ;
+        sellIDsell.setCellValueFactory(new PropertyValueFactory<product,Integer>("idsell"));
+        sellIDsell.setVisible(false);
+        sellID.setCellValueFactory(new PropertyValueFactory<product,Integer>("id"));
+        sellID.setVisible(false);
+        sellname.setCellValueFactory(new PropertyValueFactory<product,String>("name"));
+        sellfirstprice.setCellValueFactory(new PropertyValueFactory<product,Float>("firstprice"));
+        sellfirstprice.setVisible(false);
+        sellprice.setCellValueFactory(new PropertyValueFactory<product,Float>("price"));
+        sellpricesell.setCellValueFactory(new PropertyValueFactory<product,Float>("sellprice"));
+        sellquantity.setCellValueFactory(new PropertyValueFactory<product,Integer>("quantity"));
+        selltotalprice.setCellValueFactory(new PropertyValueFactory<product,Float>("totalprice"));
+        sellwinner.setCellValueFactory(new PropertyValueFactory<product,Float>("winner") );
+        selltableview.setItems(list);
+    }
+
+    public void sellsearchmethode(KeyEvent keyEvent) {
+        ObservableList <Seltproduct> list = sellsearchble() ;
+        sellID.setCellValueFactory(new PropertyValueFactory<product,Integer>("id"));
+        sellID.setVisible(false);
+        sellname.setCellValueFactory(new PropertyValueFactory<product,String>("name"));
+        sellfirstprice.setCellValueFactory(new PropertyValueFactory<product,Float>("firstprice"));
+        sellfirstprice.setVisible(false);
+        sellprice.setCellValueFactory(new PropertyValueFactory<product,Float>("price"));
+        sellpricesell.setCellValueFactory(new PropertyValueFactory<product,Float>("sellprice"));
+        sellquantity.setCellValueFactory(new PropertyValueFactory<product,Integer>("quantity"));
+        selltotalprice.setCellValueFactory(new PropertyValueFactory<product,Float>("totalprice"));
+        sellwinner.setCellValueFactory(new PropertyValueFactory<product,Float>("winner") );
+        selltableview.setItems(list);
+    }
+////////////////////////////////////////////////////////////////////////////////////
+private  void  updatesellRecord(){
+
+    if (tfpriceselledit.getText().isEmpty() || tfqselledit.getText().isEmpty() ) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setHeaderText(null);
+        alert.setContentText("ادخل الكمية او السعر من فضلك  من فضلك");
+        alert.showAndWait();
+        System.out.println("entre price");
+
+    }else{
+        String query1 = " UPDATE seltedproduct SET pricesell = "+ tfpriceselledit.getText() +",quantity =" +tfqselledit.getText()+ "  WHERE IDSELL ="+idselleditedit.getText()+";";
+        executeQuery(query1);
+
+    }
+
+}
+
+    public void editproductsell(MouseEvent mouseEvent) throws SQLException {
+        String query ="SELECT quantity from seltedproduct WHERE IDSELL ="+ idselleditedit.getText()+";";
+        String query2 ="SELECT quantity from product WHERE id ="+ idselledit.getText()+";";
+        Connection conn = connectenow.getconnention();
+
+        PreparedStatement s = conn.prepareStatement(query);
+        PreparedStatement s1 = conn.prepareStatement(query2);
+
+        ResultSet rs = s.executeQuery();
+        ResultSet rs1 = s1.executeQuery();
+        int quantity = 0;
+        int quantityp = 0;
+        while(rs.next()) {
+            quantity = rs.getInt("quantity");
+            System.out.println("quantity "+quantity);
+        }
+        while(rs1.next()) {
+            quantityp = rs1.getInt("quantity");
+            System.out.println("quantityp "+quantityp);
+        }
+  int result = quantityp - Integer.parseInt(tfqselledit.getText()) +quantity;
+        Boolean True=false;
+        if (Integer.parseInt(tfqselledit.getText())<= quantity){
+            if (True==false){
+
+                String query1 = "UPDATE product SET quantity = quantity +"+
+                        quantity+"-"+ tfqselledit.getText()+" WHERE id  ="+idselledit.getText()+";";
+
+                executeQuery(query1);
+                True =true;
+            }
+            if (True==true){
+                updatesellRecord();
+            }
+            textsec.setText("تم تعديل بنجاح");
+            textsec.getStyleClass().add("txtgreen");
+        }else if (quantityp!=0 && result>=0 ){
+        if (True==false){
+
+                    String query1 = "UPDATE product SET quantity = quantity +"+
+                            quantity+"-"+ tfqselledit.getText()+" WHERE id  ="+idselledit.getText()+";";
+            System.out.println(quantity);
+            executeQuery(query1);
+            True =true;
+        }
+        if (True==true){
+             updatesellRecord();
+          }
+          textsec.setText("تم تعديل بنجاح");
+        textsec.getStyleClass().add("txtgreen");
+
+  }
+  else{
+      textsec.getStyleClass().add("txtred");
+      textsec.setText("نفذ المنتج  ");
+
+  }
+
+
+    }
+    ////////////////////////////
+    public void remplitable() throws SQLException {
+        Connection conn = connectenow.getconnention();
+        String query1 = "select sum(quantity*pricesell-seltedproduct.quantity*firstprice) as sum ,  created from seltedproduct group by  created";
+        PreparedStatement ps1 =conn.prepareStatement(query1);
+
+
+        ResultSet rs1 = ps1.executeQuery();
+
+        while (rs1.next() ){
+
+            String date  = rs1.getString("created");
+            String query = "INSERT INTO profits ( `create` , dayprofits )\n" +
+                    "VALUES (   DATE ' "+rs1.getDate("created")+"' , "+ rs1.getFloat("sum")  +")" +
+            "ON DUPLICATE KEY UPDATE dayprofits = "+ rs1.getString("sum");
+            executeQuery(query);
+            System.out.println(date);
+        }
+
+    }
+    public void getprofits() throws SQLException {
+        remplitable();
+        pagehome.setCenter(profitspane);
+        ObservableList <profits> list =   remplitableprofits();
+        idtable.setCellValueFactory(new PropertyValueFactory<product,Integer>("id"));
+        idtable.setVisible(false);
+        created.setCellValueFactory(new PropertyValueFactory<product,Date>("create"));
+        profits.setCellValueFactory(new PropertyValueFactory<product,Float>("dayprofits"));
+        expenses.setCellValueFactory(new PropertyValueFactory<product,Float>("expenses"));
+
+        proex.setCellValueFactory(new PropertyValueFactory<product,Float>("result") );
+
+
+
+        Callback<TableColumn<profits, Void>, TableCell<profits, Void>> cellFactory = new Callback<TableColumn<profits, Void>, TableCell<profits, Void>>() {
+
+            public TableCell<profits, Void> call(final TableColumn<profits, Void> param) {
+                final TableCell<profits, Void> cell = new TableCell<profits, Void>() {
+
+                    private final Button editButton = new Button("اضافة مصروف ");
+
+
+
+                    private final HBox pane = new HBox(editButton);
+
+
+
+                    { pane.getStyleClass().add("space");
+                        editButton.getStyleClass().add("edit");
+
+
+
+                        //editbutton action
+                        editButton.setOnAction((ActionEvent event) -> {
+                            profits data = getTableView().getItems().get(getIndex());
+                            addprofits( data);
+                            try {
+                                getprofits();
+                            } catch (SQLException throwables) {
+                                throwables.printStackTrace();
+                            }
+
+                        });
+                        expensestf.setText("");
+
+
+                    }
+
+                    @Override
+                    public void updateItem(Void item, boolean empty) {
+                        super.updateItem(item, empty);
+                        setGraphic(empty ? null : pane);
+                    }
+                };
+                return cell;
+            }
+        };
+        action.setCellFactory(cellFactory);
+
+
+
+
+        profitstable.setItems(list);
+
+    }
+
+
+
+    ///////////////////////////////////////
+    private  void  addprofits(profits data){
+
+        if (expensestf.getText().isEmpty()  ) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setHeaderText(null);
+            alert.setContentText("ادخل المصروف من فضلك  من فضلك");
+            alert.showAndWait();
+
+
+        }else{
+            String query1 = " UPDATE profits SET expenses = "+ expensestf.getText() +"  WHERE id ="+data.getId()+";";
+            executeQuery(query1);
+
+        }
+
+    }
+/////////////////////////////////////////////////
+
+    private ObservableList<profits> remplitableprofits() {
+        ObservableList <profits> productlist = FXCollections.observableArrayList();
+        Connection conn = connectenow.getconnention();
+
+        String query  = "SELECT * FROM profits  ;";
+        Statement st;
+        ResultSet rs;
+        try {
+            st = conn.createStatement();
+            rs =st.executeQuery(query);
+            profits profits;
+            while (rs.next()){
+
+
+                      Float proex=rs.getFloat("dayprofits")-rs.getFloat("expenses");
+                      profits =  new profits(rs.getInt("id"),rs.getFloat("expenses"),rs.getFloat("dayprofits"),rs.getDate("create"),proex);
+                productlist.add(profits);
+            }
+
+        } catch (Exception exception) {
+            exception.printStackTrace();
+        }
+        return productlist;
+
+    }
+////////////////////////////////////
+
+    public void gotoprofits(MouseEvent mouseEvent) throws SQLException {
+        remplitable();
+        pagehome.setCenter(profitspane);
+        ObservableList <profits> list =   remplitableprofits();
+        idtable.setCellValueFactory(new PropertyValueFactory<product,Integer>("id"));
+        idtable.setVisible(false);
+        created.setCellValueFactory(new PropertyValueFactory<product,Date>("create"));
+        profits.setCellValueFactory(new PropertyValueFactory<product,Float>("dayprofits"));
+        expenses.setCellValueFactory(new PropertyValueFactory<product,Float>("expenses"));
+
+        proex.setCellValueFactory(new PropertyValueFactory<product,Float>("result") );
+
+
+
+        Callback<TableColumn<profits, Void>, TableCell<profits, Void>> cellFactory = new Callback<TableColumn<profits, Void>, TableCell<profits, Void>>() {
+
+            public TableCell<profits, Void> call(final TableColumn<profits, Void> param) {
+                final TableCell<profits, Void> cell = new TableCell<profits, Void>() {
+
+                    private final Button editButton = new Button("اضافة مصروف ");
+
+
+
+                    private final HBox pane = new HBox( editButton);
+
+
+
+                    { pane.getStyleClass().add("space");
+                        editButton.getStyleClass().add("edit");
+
+
+
+                        //editbutton action
+                        editButton.setOnAction((ActionEvent event) -> {
+                            profits data = getTableView().getItems().get(getIndex());
+                            addprofits( data);
+                            try {
+                                getprofits();
+                            } catch (SQLException throwables) {
+                                throwables.printStackTrace();
+                            }
+
+                            });
+                        expensestf.setText("");
+
+
+                    }
+
+                    @Override
+                    public void updateItem(Void item, boolean empty) {
+                        super.updateItem(item, empty);
+                        setGraphic(empty ? null : pane);
+                    }
+                };
+                return cell;
+            }
+        };
+        action.setCellFactory(cellFactory);
+
+
+
+
+        profitstable.setItems(list);
+    }
+    ///
+    public ObservableList<profits> searchbydate( LocalDate key) {
+        ObservableList <profits> productlist = FXCollections.observableArrayList();
+        Connection conn = connectenow.getconnention();
+
+        String query  = "SELECT * FROM profits where `create`  =  DATE ' "+  key+" ' ;";
+        Statement st;
+        ResultSet rs;
+        try {
+            st = conn.createStatement();
+            rs =st.executeQuery(query);
+            profits profits;
+            while (rs.next()){
+
+
+                Float proex=rs.getFloat("dayprofits")-rs.getFloat("expenses");
+                profits =  new profits(rs.getInt("id"),rs.getFloat("expenses"),rs.getFloat("dayprofits"),rs.getDate("create"),proex);
+                productlist.add(profits);
+            }
+
+        } catch (Exception exception) {
+            exception.printStackTrace();
+        }
+        return productlist;
+
+    }
+
+    public void getbydate(KeyEvent keyEvent) {
+        System.out.println(date.getValue());
+       LocalDate key =date.getValue();
+               ObservableList <profits> list =   searchbydate(key);
+        idtable.setCellValueFactory(new PropertyValueFactory<product,Integer>("id"));
+        idtable.setVisible(false);
+        created.setCellValueFactory(new PropertyValueFactory<product,Date>("create"));
+        profits.setCellValueFactory(new PropertyValueFactory<product,Float>("dayprofits"));
+        expenses.setCellValueFactory(new PropertyValueFactory<product,Float>("expenses"));
+
+        proex.setCellValueFactory(new PropertyValueFactory<product,Float>("result") );
+        profitstable.setItems(list);
+    }
+
+    public void deleteallproduct(MouseEvent mouseEvent) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("تنبيه ");
+
+        alert.setContentText(" هل تريد حذف الكل   "+"؟");
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK){
+            String query  = "truncate  table  product";
+            executeQuery(query);
+            pagehome.setCenter(table);
+            showproducts();
+            System.out.println("done");
+
+        }
+
+    }
+
+    public void deleteallsell(MouseEvent mouseEvent) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("تنبيه ");
+
+        alert.setContentText(" هل تريد حذف الكل   "+"؟");
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK){
+            String query  = "truncate  table  seltedproduct";
+            String query1 = "truncate  table  profits";
+            executeQuery(query);
+            executeQuery(query1);
+            pagehome.setCenter(selltable);
+            showseltedproducts();
+            System.out.println("done");
+
+        }
+    }
+
+    public void login(MouseEvent mouseEvent) {
+
+        Connection conn = connectenow.getconnention();
+
+        String query  = "SELECT * FROM users ";
+        Statement st;
+        ResultSet rs;
+
+        try {
+            st = conn.createStatement();
+            rs =st.executeQuery(query);
+            user user;
+            while (rs.next()){
+
+
+
+                user =  new user(rs.getString("username"),rs.getString("password"));
+                 if (tfusername.getText().equalsIgnoreCase(user.getUsername())){
+                if (tfpw.getText().equals(user.getPassword())){
+                    showproducts();
+                    pagehome.setCenter(table);
+                    pagehome.setRight(tools);
+                } else{
+                    fiald.setText("كلمة المرور خاطئة");
+                }
+                 }else{
+                     fiald.setText("اسم المستخدم غير صحيح");
+                }
+
+            }
+
+        } catch (Exception exception) {
+            exception.printStackTrace();
+        }
+
+
+    }
+
+
+    public void showpw(MouseEvent mouseEvent) {
+        if (checkbox.isSelected()) {
+            tfshowpw.setText(tfpw.getText());
+            tfshowpw.setVisible(true);
+            tfpw.setVisible(false);
+            return;
+        }
+        tfpw.setText(tfpw.getText());
+        tfpw.setVisible(true);
+        tfshowpw.setVisible(false);
+
     }
 }
+
+
+

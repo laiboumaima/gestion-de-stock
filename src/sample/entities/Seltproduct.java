@@ -3,8 +3,10 @@ package sample.entities;
 import java.util.Date;
 
 public class Seltproduct {
+    private int idsell ;
     private int id ;
     private  String name;
+    private Date created;
     private  float firstprice;
     private  float price ;
     private  float sellprice ;
@@ -12,13 +14,21 @@ public class Seltproduct {
     private  String category;
     private  float totalprice ;
     private  float winner ;
-    private Date created;
+
+    public int getIdsell() {
+        return idsell;
+    }
+
+    public void setIdsell(int idsell) {
+        this.idsell = idsell;
+    }
 
     public Seltproduct() {
     }
 
-    public Seltproduct(int id, String name, float firstprice, float price, float sellprice, int quantity, String category, float totalprice, float winner, Date created) {
+    public Seltproduct(int idsell,int id, String name, Date created, float firstprice, float price, float sellprice, int quantity, String category, float totalprice, float winner) {
         this.id = id;
+        this.idsell = idsell;
         this.name = name;
         this.firstprice = firstprice;
         this.price = price;
