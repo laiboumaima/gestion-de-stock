@@ -83,7 +83,7 @@
     -fx-background-color: -fx-focus-color, -fx-background ;
 }
 .add{
-
+    -fx-cursor: hand;
     -fx-background-color:  #1D80AF;
     -fx-text-fill: #ffffff;
     -fx-font-size: 20;
@@ -111,7 +111,7 @@
 .delete{
     -fx-background-color: #d51010;
     -fx-text-fill: #ffffff;
-
+    -fx-cursor: hand;
     -fx-border-radius: 20;
 
 
@@ -124,7 +124,7 @@
 }
 .sell:hover{ -fx-background-color: #003b55;
     -fx-text-fill: #ffffff;
-
+    -fx-cursor: hand;
     -fx-border-radius: 20;
 
 }
