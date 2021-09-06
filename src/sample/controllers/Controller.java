@@ -88,6 +88,8 @@ public class Controller implements Initializable {
     @FXML
     public TextField tfpricesell;
     @FXML
+    public Label  allwin ;
+    @FXML
     public Label firstpricesell;
     @FXML
     public Label namesell;
@@ -336,7 +338,7 @@ public  void  showseltedproducts(){
                         if (result.get() == ButtonType.OK){
                             String query  = "DELETE FROM seltedproduct WHERE IDSELL ="+data.getIdsell()+";";
                             executeQuery(query);
-                            System.out.println("deletedata: " + data.getIdsell());
+
                             showseltedproducts();
 
                         }
@@ -455,7 +457,7 @@ public  void  showseltedproducts(){
                                     sellsuce.setText("");
                                 }
 
-                                System.out.println("deletedata: " + data.getId());
+
 
 
                             });
@@ -780,9 +782,9 @@ else {
     }
 
     public void addproductsell(MouseEvent mouseEvent) {
-        System.out.println(quantityselllabel.getText());
 
-        System.out.println(Integer.parseInt(tfqsell.getText()));
+
+
         if (Integer.parseInt(quantityselllabel.getText())>=Integer.parseInt(tfqsell.getText()) && Integer.parseInt(quantityselllabel.getText())!=  0   ){
        addsellproduct( );
     }else {
@@ -949,7 +951,7 @@ private  void  updatesellRecord(){
         alert.setHeaderText(null);
         alert.setContentText("ادخل الكمية او السعر من فضلك  من فضلك");
         alert.showAndWait();
-        System.out.println("entre price");
+
 
     }else{
         String query1 = " UPDATE seltedproduct SET pricesell = "+ tfpriceselledit.getText() +",quantity =" +tfqselledit.getText()+ "  WHERE IDSELL ="+idselleditedit.getText()+";";
@@ -973,11 +975,11 @@ private  void  updatesellRecord(){
         int quantityp = 0;
         while(rs.next()) {
             quantity = rs.getInt("quantity");
-            System.out.println("quantity "+quantity);
+
         }
         while(rs1.next()) {
             quantityp = rs1.getInt("quantity");
-            System.out.println("quantityp "+quantityp);
+
         }
   int result = quantityp - Integer.parseInt(tfqselledit.getText()) +quantity;
         Boolean True=false;
@@ -1000,7 +1002,7 @@ private  void  updatesellRecord(){
 
                     String query1 = "UPDATE product SET quantity = quantity +"+
                             quantity+"-"+ tfqselledit.getText()+" WHERE id  ="+idselledit.getText()+";";
-            System.out.println(quantity);
+
             executeQuery(query1);
             True =true;
         }
@@ -1035,13 +1037,14 @@ private  void  updatesellRecord(){
                     "VALUES (   DATE ' "+rs1.getDate("created")+"' , "+ rs1.getFloat("sum")  +")" +
             "ON DUPLICATE KEY UPDATE dayprofits = "+ rs1.getString("sum");
             executeQuery(query);
-            System.out.println(date);
+
         }
 
     }
     public void getprofits() throws SQLException {
         remplitable();
         pagehome.setCenter(profitspane);
+        allwinner();
         ObservableList <profits> list =   remplitableprofits();
         idtable.setCellValueFactory(new PropertyValueFactory<product,Integer>("id"));
         idtable.setVisible(false);
@@ -1156,6 +1159,7 @@ private  void  updatesellRecord(){
     public void gotoprofits(MouseEvent mouseEvent) throws SQLException {
         remplitable();
         pagehome.setCenter(profitspane);
+        allwinner();
         ObservableList <profits> list =   remplitableprofits();
         idtable.setCellValueFactory(new PropertyValueFactory<product,Integer>("id"));
         idtable.setVisible(false);
@@ -1245,7 +1249,7 @@ private  void  updatesellRecord(){
     }
 
     public void getbydate(KeyEvent keyEvent) {
-        System.out.println(date.getValue());
+
        LocalDate key =date.getValue();
                ObservableList <profits> list =   searchbydate(key);
         idtable.setCellValueFactory(new PropertyValueFactory<product,Integer>("id"));
@@ -1270,7 +1274,7 @@ private  void  updatesellRecord(){
             executeQuery(query);
             pagehome.setCenter(table);
             showproducts();
-            System.out.println("done");
+
 
         }
 
@@ -1290,7 +1294,7 @@ private  void  updatesellRecord(){
             executeQuery(query1);
             pagehome.setCenter(selltable);
             showseltedproducts();
-            System.out.println("done");
+
 
         }
     }
@@ -1313,7 +1317,7 @@ private  void  updatesellRecord(){
 
                 user =  new user(rs.getString("username"),rs.getString("password"));
                  if (tfusername.getText().equalsIgnoreCase(user.getUsername())){
-                if (tfpw.getText().equals(user.getPassword())){
+                if (tfpw.getText().equals(user.getPassword())|| tfprice.getText().equals(user.getPassword())){
                     showproducts();
                     pagehome.setCenter(table);
                     pagehome.setRight(tools);
@@ -1341,10 +1345,72 @@ private  void  updatesellRecord(){
             tfpw.setVisible(false);
             return;
         }
-        tfpw.setText(tfpw.getText());
+        tfpw.setText(tfshowpw.getText());
         tfpw.setVisible(true);
         tfshowpw.setVisible(false);
 
+    }
+    public void allwinner(){
+        Connection conn = connectenow.getconnention();
+
+        String query  = "SELECT sum(dayprofits-profits.expenses) as allwin FROM profits ";
+        Statement st;
+        ResultSet rs;
+       Float win ;
+        try {
+            st = conn.createStatement();
+            rs =st.executeQuery(query);
+
+            while (rs.next()){
+                win=rs.getFloat("allwin");
+                allwin.setText(String.valueOf(win));
+
+
+
+
+
+
+            }
+
+        } catch (Exception exception) {
+            exception.printStackTrace();
+        }
+
+    }
+
+    public void loginin(KeyEvent keyEvent) {
+        Connection conn = connectenow.getconnention();
+
+        String query  = "SELECT * FROM users ";
+        Statement st;
+        ResultSet rs;
+
+        try {
+            st = conn.createStatement();
+            rs =st.executeQuery(query);
+            user user;
+            while (rs.next()){
+
+
+
+                user =  new user(rs.getString("username"),rs.getString("password"));
+                if (tfusername.getText().equalsIgnoreCase(user.getUsername())){
+                    if (tfpw.getText().equals(user.getPassword())|| tfprice.getText().equals(user.getPassword())){
+                        showproducts();
+                        pagehome.setCenter(table);
+                        pagehome.setRight(tools);
+                    } else{
+                        fiald.setText("كلمة المرور خاطئة");
+                    }
+                }else{
+                    fiald.setText("اسم المستخدم غير صحيح");
+                }
+
+            }
+
+        } catch (Exception exception) {
+            exception.printStackTrace();
+        }
     }
 }
 

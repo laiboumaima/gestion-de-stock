@@ -23,31 +23,7 @@
 
 <BorderPane fx:id="pagehome" layoutX="1.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="742.0" prefWidth="1032.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controllers.Controller">
          <center>
-             <Pane fx:id="editpage" prefHeight="742.0" prefWidth="864.0" styleClass="pane" stylesheets="@../style/style.css">
-                 <children>
-                     <Label layoutX="282.0" layoutY="11.0" prefHeight="59.0" prefWidth="329.0" style="-fx-text-fill: #1D80AF; -fx-font-size: 30; -fx-alignment: center; -fx-font-weight: bold;" stylesheets="@../style/style.css" text=" تعديل منتج" />
-                     <Pane layoutX="72.0" layoutY="112.0" prefHeight="575.0" prefWidth="728.0" style="-fx-background-color: #000;" stylesheets="@../style/login.css">
-                         <children>
-                             <Label layoutX="559.0" layoutY="5.0" styleClass="lbl" stylesheets="@../style/style.css" text=":ID" textAlignment="CENTER" />
-                             <Label fx:id="idproductedit" layoutX="500.0" layoutY="5.0" styleClass="lbl" stylesheets="@../style/style.css" text="" textAlignment="CENTER" />
-                             <Label layoutX="559.0" layoutY="54.0" styleClass="lbl" stylesheets="@../style/style.css" text="اسم المنتج :" textAlignment="CENTER" />
-                             <TextField id="name" fx:id="tfpnedit" alignment="CENTER_RIGHT" layoutX="128.0" layoutY="41.0" prefHeight="38.0" prefWidth="394.0" promptText="اسم المنتج" styleClass="textfield" stylesheets="@../style/style.css" />
-                             <Label layoutX="560.0" layoutY="116.0" styleClass="lbl" stylesheets="@../style/style.css" text="السعر الخام :" textAlignment="CENTER" />
-                             <TextField id="firstprice" fx:id="tffpriceedit" alignment="CENTER_RIGHT" layoutX="125.0" layoutY="108.0" prefHeight="38.0" prefWidth="394.0" promptText="السعر الخام " styleClass="textfield" stylesheets="@../style/style.css" />
-                             <Label layoutX="566.0" layoutY="179.0" styleClass="lbl" stylesheets="@../style/style.css" text="سعر  للبيع :" textAlignment="CENTER" />
-                             <TextField id="price" fx:id="tfpriceedit" alignment="CENTER_RIGHT" layoutX="124.0" layoutY="168.0" prefHeight="38.0" prefWidth="394.0" promptText="سعر  للبيع " styleClass="textfield" stylesheets="@../style/style.css" />
-                             <Label alignment="CENTER" contentDisplay="CENTER" layoutX="562.0" layoutY="239.0" prefHeight="24.0" prefWidth="104.0" styleClass="lbl" stylesheets="@../style/style.css" text="الكمية :" textAlignment="CENTER" />
-                             <TextField id="quantity" fx:id="tfqedit" alignment="CENTER_RIGHT" layoutX="122.0" layoutY="229.0" prefHeight="38.0" prefWidth="394.0" promptText="الكمية" styleClass="textfield" stylesheets="@../style/style.css" />
-                             <Label alignment="CENTER" contentDisplay="CENTER" layoutX="561.0" layoutY="312.0" prefHeight="24.0" prefWidth="104.0" styleClass="lbl" stylesheets="@../style/style.css" text="الفئة :" textAlignment="CENTER" />
-                             <Button fx:id="btneditproduct" layoutX="479.0" layoutY="453.0" mnemonicParsing="false" onMouseClicked="#editproduct" prefHeight="45.0" prefWidth="187.0" styleClass="add" stylesheets="@../style/style.css" text="تعديل" />
-                             <TextField fx:id="tfcategoryedit" alignment="CENTER_RIGHT" layoutX="125.0" layoutY="303.0" prefHeight="38.0" prefWidth="394.0" promptText="الكمية" styleClass="textfield" stylesheets="@../style/style.css" />
-                             <Label fx:id="addsuceedit" alignment="TOP_CENTER" contentDisplay="CENTER" layoutX="218.0" layoutY="528.0" prefHeight="18.0" prefWidth="280.0" style="-fx-text-fill: #00ff00;" />
-                             <Button contentDisplay="CENTER" layoutX="330.0" layoutY="453.0" mnemonicParsing="false" onMouseClicked="#canceledit" prefHeight="45.0" prefWidth="126.0" styleClass="cancel" stylesheets="@../style/style.css" text="الغاء" />
 
-                         </children>
-                     </Pane>
-                 </children>
-             </Pane>
              <!---->
              <Pane id="add-new" fx:id="addnewwproduct" prefHeight="742.0" prefWidth="864.0" styleClass="pane" stylesheets="@../style/style.css">
                  <children>
@@ -190,6 +166,16 @@
                          </GridPane.margin>
                      </DatePicker>
                      <TextField fx:id="expensestf" alignment="CENTER" prefHeight="26.0" prefWidth="429.0" promptText="اضافة مصروف" GridPane.rowIndex="2" />
+                     <Pane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
+                         <children>
+                             <Pane layoutY="-7.0" prefHeight="81.0" prefWidth="388.0">
+                                 <children>
+                                     <Label layoutX="265.0" layoutY="14.0" prefHeight="46.0" prefWidth="113.0" style="-fx-text-fill: #1C61B1;" text="صافي الارباح :  DA" />
+                                     <Label fx:id="allwin" alignment="CENTER_RIGHT" layoutX="10.0" layoutY="14.0" prefHeight="46.0" prefWidth="234.0" style="-fx-font-size: 20;" />
+                                 </children>
+                             </Pane>
+                         </children>
+                     </Pane>
                  </children>
              </GridPane>
              <GridPane fx:id="selltable" prefHeight="742.0" prefWidth="913.0" BorderPane.alignment="CENTER">
@@ -264,6 +250,33 @@
 
                  </children>
              </GridPane>
+
+
+             <Pane fx:id="editpage" prefHeight="742.0" prefWidth="864.0" styleClass="pane" stylesheets="@../style/style.css">
+                 <children>
+                     <Label layoutX="282.0" layoutY="11.0" prefHeight="59.0" prefWidth="329.0" style="-fx-text-fill: #1D80AF; -fx-font-size: 30; -fx-alignment: center; -fx-font-weight: bold;" stylesheets="@../style/style.css" text=" تعديل منتج" />
+                     <Pane layoutX="72.0" layoutY="112.0" prefHeight="575.0" prefWidth="728.0" style="-fx-background-color: #ffffff;" stylesheets="@../style/style.css">
+                         <children>
+                             <Label layoutX="559.0" layoutY="5.0" styleClass="lbl" stylesheets="@../style/style.css" text=":ID" textAlignment="CENTER" />
+                             <Label fx:id="idproductedit" layoutX="500.0" layoutY="5.0" styleClass="lbl" stylesheets="@../style/style.css" text="" textAlignment="CENTER" />
+                             <Label layoutX="559.0" layoutY="54.0" styleClass="lbl" stylesheets="@../style/style.css" text="اسم المنتج :" textAlignment="CENTER" />
+                             <TextField id="name" fx:id="tfpnedit" alignment="CENTER_RIGHT" layoutX="128.0" layoutY="41.0" prefHeight="38.0" prefWidth="394.0" promptText="اسم المنتج" styleClass="textfield" stylesheets="@../style/style.css" />
+                             <Label layoutX="560.0" layoutY="116.0" styleClass="lbl" stylesheets="@../style/style.css" text="السعر الخام :" textAlignment="CENTER" />
+                             <TextField id="firstprice" fx:id="tffpriceedit" alignment="CENTER_RIGHT" layoutX="125.0" layoutY="108.0" prefHeight="38.0" prefWidth="394.0" promptText="السعر الخام " styleClass="textfield" stylesheets="@../style/style.css" />
+                             <Label layoutX="566.0" layoutY="179.0" styleClass="lbl" stylesheets="@../style/style.css" text="سعر  للبيع :" textAlignment="CENTER" />
+                             <TextField id="price" fx:id="tfpriceedit" alignment="CENTER_RIGHT" layoutX="124.0" layoutY="168.0" prefHeight="38.0" prefWidth="394.0" promptText="سعر  للبيع " styleClass="textfield" stylesheets="@../style/style.css" />
+                             <Label alignment="CENTER" contentDisplay="CENTER" layoutX="562.0" layoutY="239.0" prefHeight="24.0" prefWidth="104.0" styleClass="lbl" stylesheets="@../style/style.css" text="الكمية :" textAlignment="CENTER" />
+                             <TextField id="quantity" fx:id="tfqedit" alignment="CENTER_RIGHT" layoutX="122.0" layoutY="229.0" prefHeight="38.0" prefWidth="394.0" promptText="الكمية" styleClass="textfield" stylesheets="@../style/style.css" />
+                             <Label alignment="CENTER" contentDisplay="CENTER" layoutX="561.0" layoutY="312.0" prefHeight="24.0" prefWidth="104.0" styleClass="lbl" stylesheets="@../style/style.css" text="الفئة :" textAlignment="CENTER" />
+                             <Button fx:id="btneditproduct" layoutX="479.0" layoutY="453.0" mnemonicParsing="false" onMouseClicked="#editproduct" prefHeight="45.0" prefWidth="187.0" styleClass="add" stylesheets="@../style/style.css" text="تعديل" />
+                             <TextField fx:id="tfcategoryedit" alignment="CENTER_RIGHT" layoutX="125.0" layoutY="303.0" prefHeight="38.0" prefWidth="394.0" promptText="الكمية" styleClass="textfield" stylesheets="@../style/style.css" />
+                             <Label fx:id="addsuceedit" alignment="TOP_CENTER" contentDisplay="CENTER" layoutX="218.0" layoutY="528.0" prefHeight="18.0" prefWidth="280.0" style="-fx-text-fill: #00ff00;" />
+                             <Button contentDisplay="CENTER" layoutX="330.0" layoutY="453.0" mnemonicParsing="false" onMouseClicked="#canceledit" prefHeight="45.0" prefWidth="126.0" styleClass="cancel" stylesheets="@../style/style.css" text="الغاء" />
+
+                         </children>
+                     </Pane>
+                 </children>
+             </Pane>
 <!--->
                        page
                        <!-->
@@ -336,7 +349,7 @@
                   </RadialGradient>
                </fill>
             </Circle>
-            <Circle layoutX="123.0" layoutY="681.0" radius="17.0" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="0.0">
+            <Circle layoutX="161.0" layoutY="644.0" radius="17.0" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="0.0">
                <fill>
                   <RadialGradient centerX="0.5" centerY="0.5" radius="0.5">
                      <stops>
@@ -346,7 +359,7 @@
                   </RadialGradient>
                </fill>
             </Circle>
-            <Circle layoutX="39.0" layoutY="704.0" radius="25.0" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="0.0">
+            <Circle layoutX="30.0" layoutY="695.0" radius="34.0" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="0.0">
                <fill>
                   <RadialGradient centerX="0.5" centerY="0.5" radius="0.5">
                      <stops>
@@ -356,7 +369,7 @@
                   </RadialGradient>
                </fill>
             </Circle>
-            <Circle layoutX="89.0" layoutY="618.0" radius="25.0" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="0.0">
+            <Circle layoutX="100.0" layoutY="627.0" radius="25.0" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="0.0">
                <fill>
                   <RadialGradient centerX="0.5" centerY="0.5" radius="0.5">
                      <stops>
@@ -366,7 +379,7 @@
                   </RadialGradient>
                </fill>
             </Circle>
-            <Circle layoutX="39.0" layoutY="570.0" radius="12.0" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="0.0">
+            <Circle layoutX="132.0" layoutY="333.0" radius="12.0" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="0.0">
                <fill>
                   <RadialGradient centerX="0.5" centerY="0.5" radius="0.5">
                      <stops>
@@ -386,7 +399,7 @@
                   </RadialGradient>
                </fill>
             </Circle>
-            <Circle layoutX="88.0" layoutY="541.0" radius="17.0" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="0.0">
+            <Circle layoutX="175.0" layoutY="496.0" radius="17.0" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="0.0">
                <fill>
                   <RadialGradient centerX="0.5" centerY="0.5" radius="0.5">
                      <stops>
@@ -396,7 +409,7 @@
                   </RadialGradient>
                </fill>
             </Circle>
-            <Circle layoutX="161.0" layoutY="631.0" radius="29.0" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="0.0">
+            <Circle layoutX="132.0" layoutY="552.0" radius="29.0" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="0.0">
                <fill>
                   <RadialGradient centerX="0.5" centerY="0.5" radius="0.5">
                      <stops>
@@ -428,24 +441,147 @@
             </Circle>
             <TextField fx:id="tfusername" alignment="CENTER" layoutX="380.0" layoutY="321.0" prefHeight="43.0" prefWidth="359.0" promptText="اسم المستخدم" style="-fx-background-color: #fff;" styleClass="textfield" stylesheets="@../style/login.css" />
             <Label alignment="CENTER" contentDisplay="CENTER" layoutX="395.0" layoutY="107.0" prefHeight="77.0" prefWidth="318.0" styleClass="lbl" stylesheets="@../style/login.css" text="تسجيل الدخول" />
-            <PasswordField fx:id="tfpw" alignment="CENTER" layoutX="385.0" layoutY="409.0" prefHeight="37.0" prefWidth="358.0" promptText="كلمة المرور" style="-fx-background-color: #fff;" styleClass="textfield" stylesheets="@../style/login.css" />
+            <PasswordField fx:id="tfpw" alignment="CENTER" layoutX="385.0" layoutY="409.0" onKeyPressed="#loginin" prefHeight="37.0" prefWidth="358.0" promptText="كلمة المرور" style="-fx-background-color: #fff;" styleClass="textfield" stylesheets="@../style/login.css" />
             <Button fx:id="btnlogin" layoutX="461.0" layoutY="530.0" mnemonicParsing="false" onMouseClicked="#login" prefHeight="43.0" prefWidth="232.0" styleClass="btn" stylesheets="@../style/login.css" text="دخول" />
             <Label fx:id="fiald" alignment="CENTER" contentDisplay="RIGHT" layoutX="311.0" layoutY="609.0" prefHeight="18.0" prefWidth="426.0" styleClass="red" stylesheets="@../style/login.css" textAlignment="CENTER" />
             <CheckBox fx:id="checkbox" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="596.0" layoutY="478.0" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" onMouseClicked="#showpw" text="عرض كلمة المرور" textFill="#1d2cf5" />
-            <TextField fx:id="tfshowpw" alignment="CENTER" layoutX="385.0" layoutY="409.0" prefHeight="37.0" prefWidth="358.0" promptText="كلمة المرور" style="-fx-background-color: #fff;" styleClass="textfield" stylesheets="@../style/login.css" visible="false" />
+            <TextField fx:id="tfshowpw" alignment="CENTER" layoutX="385.0" layoutY="409.0" onKeyPressed="#loginin" prefHeight="37.0" prefWidth="358.0" promptText="كلمة المرور" style="-fx-background-color: #fff;" styleClass="textfield" stylesheets="@../style/login.css" visible="false" />
+            <Circle layoutX="31.0" layoutY="14.0" radius="50.0" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="0.0">
+               <fill>
+                  <RadialGradient centerX="0.5" centerY="0.5" radius="0.5">
+                     <stops>
+                        <Stop color="#07ebde" />
+                        <Stop color="#0228ff" offset="1.0" />
+                     </stops>
+                  </RadialGradient>
+               </fill>
+            </Circle>
+            <Circle layoutX="75.0" layoutY="242.0" radius="47.0" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="0.0">
+               <fill>
+                  <RadialGradient centerX="0.5" centerY="0.5" radius="0.5">
+                     <stops>
+                        <Stop color="#07ebde" />
+                        <Stop color="#0228ff" offset="1.0" />
+                     </stops>
+                  </RadialGradient>
+               </fill>
+            </Circle>
+            <Circle layoutX="64.0" layoutY="343.0" radius="29.0" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="0.0">
+               <fill>
+                  <RadialGradient centerX="0.5" centerY="0.5" radius="0.5">
+                     <stops>
+                        <Stop color="#07ebde" />
+                        <Stop color="#0228ff" offset="1.0" />
+                     </stops>
+                  </RadialGradient>
+               </fill>
+            </Circle>
+            <Circle layoutX="22.0" layoutY="107.0" radius="29.0" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="0.0">
+               <fill>
+                  <RadialGradient centerX="0.5" centerY="0.5" radius="0.5">
+                     <stops>
+                        <Stop color="#07ebde" />
+                        <Stop color="#0228ff" offset="1.0" />
+                     </stops>
+                  </RadialGradient>
+               </fill>
+            </Circle>
+            <Circle layoutX="122.0" layoutY="33.0" radius="19.0" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="0.0">
+               <fill>
+                  <RadialGradient centerX="0.5" centerY="0.5" radius="0.5">
+                     <stops>
+                        <Stop color="#07ebde" />
+                        <Stop color="#0228ff" offset="1.0" />
+                     </stops>
+                  </RadialGradient>
+               </fill>
+            </Circle>
+            <Circle layoutX="89.0" layoutY="92.0" radius="14.0" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="0.0">
+               <fill>
+                  <RadialGradient centerX="0.5" centerY="0.5" radius="0.5">
+                     <stops>
+                        <Stop color="#07ebde" />
+                        <Stop color="#0228ff" offset="1.0" />
+                     </stops>
+                  </RadialGradient>
+               </fill>
+            </Circle>
+            <Circle layoutX="175.0" layoutY="81.0" radius="29.0" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="0.0">
+               <fill>
+                  <RadialGradient centerX="0.5" centerY="0.5" radius="0.5">
+                     <stops>
+                        <Stop color="#07ebde" />
+                        <Stop color="#0228ff" offset="1.0" />
+                     </stops>
+                  </RadialGradient>
+               </fill>
+            </Circle>
+            <Circle layoutX="114.0" layoutY="446.0" radius="29.0" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="0.0">
+               <fill>
+                  <RadialGradient centerX="0.5" centerY="0.5" radius="0.5">
+                     <stops>
+                        <Stop color="#07ebde" />
+                        <Stop color="#0228ff" offset="1.0" />
+                     </stops>
+                  </RadialGradient>
+               </fill>
+            </Circle>
+            <Circle layoutX="105.0" layoutY="154.0" radius="18.0" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="0.0">
+               <fill>
+                  <RadialGradient centerX="0.5" centerY="0.5" radius="0.5">
+                     <stops>
+                        <Stop color="#07ebde" />
+                        <Stop color="#0228ff" offset="1.0" />
+                     </stops>
+                  </RadialGradient>
+               </fill>
+            </Circle>
+            <Circle layoutX="180.0" layoutY="159.0" radius="26.0" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="0.0">
+               <fill>
+                  <RadialGradient centerX="0.5" centerY="0.5" radius="0.5">
+                     <stops>
+                        <Stop color="#07ebde" />
+                        <Stop color="#0228ff" offset="1.0" />
+                     </stops>
+                  </RadialGradient>
+               </fill>
+            </Circle>
+            <Circle layoutX="175.0" layoutY="260.0" radius="29.0" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="0.0">
+               <fill>
+                  <RadialGradient centerX="0.5" centerY="0.5" radius="0.5">
+                     <stops>
+                        <Stop color="#07ebde" />
+                        <Stop color="#0228ff" offset="1.0" />
+                     </stops>
+                  </RadialGradient>
+               </fill>
+            </Circle>
          </children>
              </Pane>
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
          </center>
          <right>
             <VBox fx:id="tools" prefHeight="742.0" prefWidth="295.0" style="-fx-background-color: #1C61B1;" BorderPane.alignment="CENTER">
                <children>
-                  <Pane prefHeight="200.0" prefWidth="200.0">
+                  <Pane prefHeight="200.0" prefWidth="300.0">
                      <children>
-                        <Label layoutX="68.0" layoutY="60.0" prefHeight="59.0" prefWidth="199.0" text="KeepGoLB" textFill="WHITE" textOverrun="LEADING_ELLIPSIS">
+                        <Label layoutX="45.0" layoutY="60.0" prefHeight="59.0" prefWidth="300.0" text="Chénwi Télécom" textFill="WHITE" textOverrun="LEADING_ELLIPSIS">
                            <font>
-                              <Font name="System Bold Italic" size="41.0" />
+                              <Font name="System Bold Italic" size="30.0" />
                            </font>
                         </Label>
                      </children>
@@ -481,7 +617,7 @@
              <Pane fx:id="sidet" prefHeight="321.0" prefWidth="295.0" styleClass="pane" stylesheets="@../style/login.css">
                  <children>
                      <Label layoutX="172.0" layoutY="698.0" prefHeight="18.0" prefWidth="123.0" style="-fx-text-fill: #0b2e95;" text=" Made by LB_TECH" />
-            <Circle layoutX="148.0" layoutY="29.0" radius="21.0" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="0.0">
+            <Circle layoutX="180.0" layoutY="40.0" radius="21.0" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="0.0">
                <fill>
                   <RadialGradient centerX="0.5" centerY="0.5" radius="0.5">
                      <stops>
@@ -491,7 +627,7 @@
                   </RadialGradient>
                </fill>
             </Circle>
-            <Circle layoutX="101.0" layoutY="76.0" radius="26.0" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="0.0">
+            <Circle layoutX="183.0" layoutY="121.0" radius="26.0" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="0.0">
                <fill>
                   <RadialGradient centerX="0.5" centerY="0.5" radius="0.5">
                      <stops>
@@ -501,7 +637,7 @@
                   </RadialGradient>
                </fill>
             </Circle>
-            <Circle layoutX="200.0" layoutY="29.0" radius="11.0" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="0.0">
+            <Circle layoutX="216.0" layoutY="90.0" radius="11.0" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="0.0">
                <fill>
                   <RadialGradient centerX="0.5" centerY="0.5" radius="0.5">
                      <stops>
@@ -521,7 +657,7 @@
                   </RadialGradient>
                </fill>
             </Circle>
-            <Circle layoutX="159.0" layoutY="76.0" radius="11.0" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="0.0">
+            <Circle layoutX="253.0" layoutY="425.0" radius="11.0" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="0.0">
                <fill>
                   <RadialGradient centerX="0.5" centerY="0.5" radius="0.5">
                      <stops>
@@ -531,7 +667,7 @@
                   </RadialGradient>
                </fill>
             </Circle>
-            <Circle layoutX="234.0" layoutY="132.0" radius="11.0" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="0.0">
+            <Circle layoutX="113.0" layoutY="90.0" radius="11.0" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="0.0">
                <fill>
                   <RadialGradient centerX="0.5" centerY="0.5" radius="0.5">
                      <stops>
@@ -541,7 +677,7 @@
                   </RadialGradient>
                </fill>
             </Circle>
-            <Circle layoutX="202.0" layoutY="89.0" radius="19.0" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="0.0">
+            <Circle layoutX="139.0" layoutY="170.0" radius="19.0" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="0.0">
                <fill>
                   <RadialGradient centerX="0.5" centerY="0.5" radius="0.5">
                      <stops>
@@ -551,7 +687,7 @@
                   </RadialGradient>
                </fill>
             </Circle>
-            <Circle layoutX="159.0" layoutY="132.0" radius="21.0" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="0.0">
+            <Circle layoutX="102.0" layoutY="244.0" radius="21.0" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="0.0">
                <fill>
                   <RadialGradient centerX="0.5" centerY="0.5" radius="0.5">
                      <stops>
@@ -571,7 +707,7 @@
                   </RadialGradient>
                </fill>
             </Circle>
-            <Circle layoutX="172.0" layoutY="181.0" radius="11.0" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="0.0">
+            <Circle layoutX="180.0" layoutY="255.0" radius="11.0" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="0.0">
                <fill>
                   <RadialGradient centerX="0.5" centerY="0.5" radius="0.5">
                      <stops>
@@ -581,7 +717,7 @@
                   </RadialGradient>
                </fill>
             </Circle>
-            <Circle fx:id="side" layoutX="56.0" layoutY="29.0" radius="19.0" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="0.0">
+            <Circle fx:id="side" layoutX="253.0" layoutY="371.0" radius="19.0" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="0.0">
                <fill>
                   <RadialGradient centerX="0.5" centerY="0.5" radius="0.5">
                      <stops>
@@ -591,7 +727,97 @@
                   </RadialGradient>
                </fill>
             </Circle>
-            <Circle layoutX="257.0" layoutY="36.0" radius="30.0" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="0.0">
+            <Circle layoutX="253.0" layoutY="270.0" radius="30.0" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="0.0">
+               <fill>
+                  <RadialGradient centerX="0.5" centerY="0.5" radius="0.5">
+                     <stops>
+                        <Stop color="#07ebde" />
+                        <Stop color="#0228ff" offset="1.0" />
+                     </stops>
+                  </RadialGradient>
+               </fill>
+            </Circle>
+            <Circle layoutX="253.0" layoutY="33.0" radius="37.0" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="0.0">
+               <fill>
+                  <RadialGradient centerX="0.5" centerY="0.5" radius="0.5">
+                     <stops>
+                        <Stop color="#07ebde" />
+                        <Stop color="#0228ff" offset="1.0" />
+                     </stops>
+                  </RadialGradient>
+               </fill>
+            </Circle>
+            <Circle layoutX="148.0" layoutY="341.0" radius="30.0" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="0.0">
+               <fill>
+                  <RadialGradient centerX="0.5" centerY="0.5" radius="0.5">
+                     <stops>
+                        <Stop color="#07ebde" />
+                        <Stop color="#0228ff" offset="1.0" />
+                     </stops>
+                  </RadialGradient>
+               </fill>
+            </Circle>
+            <Circle layoutX="281.0" layoutY="589.0" radius="46.0" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="0.0">
+               <fill>
+                  <RadialGradient centerX="0.5" centerY="0.5" radius="0.5">
+                     <stops>
+                        <Stop color="#07ebde" />
+                        <Stop color="#0228ff" offset="1.0" />
+                     </stops>
+                  </RadialGradient>
+               </fill>
+            </Circle>
+            <Circle layoutX="215.0" layoutY="500.0" radius="30.0" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="0.0">
+               <fill>
+                  <RadialGradient centerX="0.5" centerY="0.5" radius="0.5">
+                     <stops>
+                        <Stop color="#07ebde" />
+                        <Stop color="#0228ff" offset="1.0" />
+                     </stops>
+                  </RadialGradient>
+               </fill>
+            </Circle>
+            <Circle fx:id="side1" layoutX="148.0" layoutY="444.0" radius="19.0" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="0.0">
+               <fill>
+                  <RadialGradient centerX="0.5" centerY="0.5" radius="0.5">
+                     <stops>
+                        <Stop color="#07ebde" />
+                        <Stop color="#0228ff" offset="1.0" />
+                     </stops>
+                  </RadialGradient>
+               </fill>
+            </Circle>
+            <Circle layoutX="113.0" layoutY="543.0" radius="26.0" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="0.0">
+               <fill>
+                  <RadialGradient centerX="0.5" centerY="0.5" radius="0.5">
+                     <stops>
+                        <Stop color="#07ebde" />
+                        <Stop color="#0228ff" offset="1.0" />
+                     </stops>
+                  </RadialGradient>
+               </fill>
+            </Circle>
+            <Circle layoutX="127.0" layoutY="707.0" radius="26.0" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="0.0">
+               <fill>
+                  <RadialGradient centerX="0.5" centerY="0.5" radius="0.5">
+                     <stops>
+                        <Stop color="#07ebde" />
+                        <Stop color="#0228ff" offset="1.0" />
+                     </stops>
+                  </RadialGradient>
+               </fill>
+            </Circle>
+            <Circle layoutX="172.0" layoutY="589.0" radius="11.0" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="0.0">
+               <fill>
+                  <RadialGradient centerX="0.5" centerY="0.5" radius="0.5">
+                     <stops>
+                        <Stop color="#07ebde" />
+                        <Stop color="#0228ff" offset="1.0" />
+                     </stops>
+                  </RadialGradient>
+               </fill>
+            </Circle>
+            <Circle layoutX="113.0" layoutY="646.0" radius="11.0" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="0.0">
                <fill>
                   <RadialGradient centerX="0.5" centerY="0.5" radius="0.5">
                      <stops>

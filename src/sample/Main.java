@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 import javafx.geometry.Rectangle2D;
@@ -24,7 +25,7 @@ public class Main extends Application {
        // primaryStage.initStyle(StageStyle.UNDECORATED);
      // Rectangle2D screenBounds = Screen.getPrimary().getBounds();
       Scene scene = new Scene(root, 1193, 742);
-
+                  primaryStage.getIcons().add(new Image("sample/style/stocklogo.png"));
         primaryStage.setScene(scene);
 
         primaryStage.show();
